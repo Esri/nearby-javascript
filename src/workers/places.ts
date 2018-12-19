@@ -6,6 +6,8 @@ const geocoder = new Locator({
   url: "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer"
 });
 
+const defaultCategories = ["Coffee shop", "Bar or Pub", "Food", "Pizza", "Hotel"];
+
 export const nearby = {
   find: ({ latitude, longitude }: LatLon) => {
     const point = new Point({ longitude, latitude });
@@ -14,7 +16,7 @@ export const nearby = {
       .addressToLocations({
         location: point,
         distance: 50,
-        categories: ["Coffee shop", "Bar or Pub", "Food", "Pizza", "Hotel"],
+        categories: defaultCategories,
         maxLocations: 20,
         outFields: ["Place_addr", "PlaceName", "Phone", "URL", "Type"]
       } as any)

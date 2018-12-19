@@ -33,12 +33,16 @@ export const view = new MapView({
   padding: { left: 0, top: 60, right: 0, bottom: 0 },
   ui: {
     components: ["attribution", "zoom", "compass"]
+  },
+  popup: {
+    collapseEnabled: false
   }
 });
 
 let center: esri.Point;
 
 export const locate = new Locate({ view, scale: 9000 });
+
 view.ui.add(locate, "top-left");
 
 let locateHandler: IHandle | null;
@@ -65,9 +69,12 @@ export const initialize = async (container: HTMLDivElement) => {
   view.container = container;
 
   try {
-    await view.when().then();
+    // if (!center) {
+    //   await view.when().then();
+    //   locate.locate();
+    // }
     if (!center && locate.viewModel.state === "disabled") {
-      const handle = init(locate, "viewModel.state", (state) => {
+      const handle = init(locate, "viewModel.state", async (state) => {
         if (state === "ready") {
           handle.remove();
           locate.locate();
@@ -153,11 +160,18 @@ export const updateNearbyLayerSymbols = (color: esri.Color) => {
 
 interface UpdateExtentChangeProps {
   currentPosition?: AppPosition,
-  showNotification: boolean
+  showNotification?: boolean
 }
 
 export const watchExtentChange = (update: (a: UpdateExtentChangeProps) => void) => {
   once(view, "extent", () => {
+    const { latitude, longitude } = view.center;
+    update({
+      currentPosition: {
+        type: "point",
+        latitude, longitude
+      }
+    })
     whenFalseOnce(view, "interacting", () => {
         // only want the notification to show
         // if the map has already been loaded
@@ -167,10 +181,10 @@ export const watchExtentChange = (update: (a: UpdateExtentChangeProps) => void) 
         showNotification: isReady
       };
       if (view && view.center) {
-        const { latitude, longitude } = view.center;
         props.currentPosition = {
           type: "point",
-          latitude, longitude
+          latitude: view.center.latitude,
+          longitude: view.center.longitude
         };
       }
       update(props);

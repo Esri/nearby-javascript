@@ -6,13 +6,25 @@ import { AppContext } from "../contexts/App";
 const Notification = () => {
   const { state, setState } = useContext(AppContext);
 
+  let timeout: NodeJS.Timeout | null;
+
   useEffect(
     () => {
-      setTimeout(() => {
-        setState({
-          showNotification: false
-        });
-      }, 5000);
+      if (timeout == null) {
+        timeout = setTimeout(() => {
+          setState({
+            showNotification: false
+          });
+          clearTimeout(timeout as NodeJS.Timeout);
+          timeout = null;
+        }, 3000);
+      }
+      return () => {
+        if (timeout) {
+          clearTimeout(timeout as NodeJS.Timeout);
+        }
+        timeout = null;
+      };
     },
     [state.showNotification]
   );
@@ -28,8 +40,8 @@ const Notification = () => {
     message="Search for places?"
     actionText="Search"
     actionHandler={onActionHandler}
-    timeout={5000}
-    dismissesOnAction={false}
+    timeout={3000}
+    dismissesOnAction={true}
   />;
 };
 
