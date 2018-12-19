@@ -8,14 +8,7 @@ import {
 
 import ListItemContainer from "./styled/ListItemContainer";
 
-export interface AddressItem {
-  name: string;
-  address: string;
-  type: string;
-  distance: number;
-  bearing: string;
-  icon: string;
-}
+import { AddressItem } from "../interfaces/common";
 
 export const NearbyCard = ({
   address,

@@ -14,6 +14,15 @@ export interface NearbyItem {
   icon: string;
 }
 
+export interface AddressItem {
+  name: string;
+  address: string;
+  type: string;
+  distance: number;
+  bearing: string;
+  icon: string;
+}
+
 export interface AppPosition {
   type: string;
   latitude: number;
