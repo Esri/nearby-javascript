@@ -37,10 +37,12 @@ export interface Category {
 export interface AppState {
   categories: Category[],
   currentPosition?: AppPosition,
+  redoSearch: boolean;
   isDayTime: boolean;
   items: NearbyItem[];
   mode: string;
   position?: AppPosition;
+  showFilter: boolean;
   showNotification: boolean;
 }
 

@@ -35,7 +35,10 @@ $include_Zoom: true !default;
 
 @import "~arcgis-js-api/themes/light/main.scss";
 @import "~material-design-icons/iconfont/material-icons.css";
-@import "~@material/top-app-bar/mdc-top-app-bar.scss";
-@import "~@material/snackbar/mdc-snackbar.scss";
+@import "~@material/button/mdc-button.scss";
+@import "~@material/dialog/mdc-dialog.scss";
 @import "~@material/list/mdc-list.scss";
+@import "~@material/snackbar/mdc-snackbar.scss";
+@import "~@material/theme/mdc-theme.scss";
+@import "~@material/top-app-bar/mdc-top-app-bar.scss";
 @import "index";

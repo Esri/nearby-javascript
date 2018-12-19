@@ -44,6 +44,8 @@ export const AppContext = createContext<ContextProps>({
     mode: "list",
     isDayTime: isDay(new Date()),
     items: [],
+    redoSearch: false,
+    showFilter: false,
     showNotification: false
   },
   setState: (val: any) => val
@@ -59,6 +61,8 @@ export const AppProvider = ({ children, location }: AppProviderProps) => {
       mode: "list",
       items,
       isDayTime: isDay(new Date()),
+      redoSearch: false,
+      showFilter: false,
       showNotification: false
     }
   );
@@ -99,7 +103,7 @@ export const AppProvider = ({ children, location }: AppProviderProps) => {
   // fetch a new list of nearby items
   useEffect(
     () => {
-      const { position } = state;
+      const { categories, position, redoSearch } = state;
       // verify that the position is not the same as the previous one
       if (
         position &&
@@ -107,10 +111,14 @@ export const AppProvider = ({ children, location }: AppProviderProps) => {
         (position as AppPosition).latitude !== (latLon as LatLon).latitude &&
         (position as AppPosition).longitude !== (latLon as LatLon).longitude
       ) {
-        fetchNearbyItems(position, state.categories);
+        fetchNearbyItems(position, categories);
+      }
+      else if (redoSearch) {
+        fetchNearbyItems(position as AppPosition, categories);
+        setState({ redoSearch: false });
       }
     },
-    [state.position]
+    [state.position, state.redoSearch]
   );
 
   const value = {

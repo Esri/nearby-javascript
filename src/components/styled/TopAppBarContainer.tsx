@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { TopAppBar } from "rmwc/TopAppBar";
 
-import { AppState } from "../../contexts/App";
+import { AppState } from "../../interfaces/common";
 
 const colorHeader = "rgba(0, 121, 193, 1)";
 const colorHeaderTransparent = "rgba(0, 121, 193, 0.7)";

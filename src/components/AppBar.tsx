@@ -24,9 +24,15 @@ const navs = (mode: string) => {
 };
 
 const AppBar = (pops?: any) => {
-  const { state } = useContext(AppContext);
+  const { state, setState } = useContext(AppContext);
   const { mode } = state;
   const [nav, mapOrList] = navs(mode);
+
+  const toggleFilter = () => {
+    setState({
+      showFilter: !state.showFilter
+    });
+  };
 
   return (
     <TopAppBarContainer mode={mode}>
@@ -40,6 +46,7 @@ const AppBar = (pops?: any) => {
             aria-label="Filter"
             alt="Filter"
             icon="filter_list"
+            onClick={toggleFilter}
           />
           {mapOrList}
         </TopAppBarSection>

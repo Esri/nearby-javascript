@@ -1,4 +1,4 @@
-import { init, once, watch, whenTrueOnce } from "esri/core/watchUtils";
+import { init, once, whenTrueOnce } from "esri/core/watchUtils";
 import VectorTileLayer from "esri/layers/VectorTileLayer";
 import ArcGISMap from "esri/Map";
 import MapView from "esri/views/MapView";
