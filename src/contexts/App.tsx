@@ -3,7 +3,7 @@ import useGeolocation from "../hooks/useGeolocation";
 import useNearby from "../hooks/useNearby";
 import { isDay } from "../utils/dateUtil";
 
-import { AppPosition, AppState, LatLon } from "../interfaces/common";
+import { AppPosition, AppState, Category, LatLon } from "../interfaces/common";
 
 export interface ContextProps {
   state: AppState;
@@ -14,9 +14,33 @@ export interface AppProviderProps {
   children: JSX.Element[];
   location: Location;
 }
+// "Coffee shop", "Bar or Pub", "Food", "Pizza", "Hotel"
+const defaultCategories: Category[] = [
+  {
+    name: "Coffee Shop",
+    selected: true
+  },
+  {
+    name: "Bar or Pub",
+    selected: true
+  },
+  {
+    name: "Food",
+    selected: true
+  },
+  {
+    name: "Pizza",
+    selected: true
+  },
+  {
+    name: "Hotel",
+    selected: true
+  }
+]
 
 export const AppContext = createContext<ContextProps>({
   state: {
+    categories: defaultCategories,
     mode: "list",
     isDayTime: isDay(new Date()),
     items: [],
@@ -27,15 +51,16 @@ export const AppContext = createContext<ContextProps>({
 
 export const AppProvider = ({ children, location }: AppProviderProps) => {
   const [latLon] = useGeolocation();
-  const [items, fetchNearbyItems] = useNearby(latLon as LatLon);
+  const [items, fetchNearbyItems] = useNearby(latLon as LatLon, defaultCategories);
   const [state, setState] = useReducer<AppState, {}>(
     (currentState, newState) => ({ ...currentState, ...newState }),
     {
+      categories: defaultCategories,
       mode: "list",
       items,
       isDayTime: isDay(new Date()),
-      showNotifcation: false
-    } as any
+      showNotification: false
+    }
   );
 
   const getNearby = () => {
@@ -82,7 +107,7 @@ export const AppProvider = ({ children, location }: AppProviderProps) => {
         (position as AppPosition).latitude !== (latLon as LatLon).latitude &&
         (position as AppPosition).longitude !== (latLon as LatLon).longitude
       ) {
-        fetchNearbyItems(position);
+        fetchNearbyItems(position, state.categories);
       }
     },
     [state.position]

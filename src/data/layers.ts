@@ -1,7 +1,9 @@
 import FeatureLayer from "esri/layers/FeatureLayer";
 import { svgSymbol, svgSymbolMap } from "../utils/symbols";
 
-const fields = [
+import esri = __esri;
+
+const fields: esri.FieldProperties[] = [
   {
     name: "OBJECTID",
     alias: "OBJECTID",

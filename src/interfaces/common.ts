@@ -29,7 +29,13 @@ export interface AppPosition {
   longitude: number;
 }
 
+export interface Category {
+  name: string;
+  selected: boolean
+}
+
 export interface AppState {
+  categories: Category[],
   currentPosition?: AppPosition,
   isDayTime: boolean;
   items: NearbyItem[];
