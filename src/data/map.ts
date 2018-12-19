@@ -10,14 +10,14 @@ import { nearbyLayer } from "./layers";
 import esri = __esri;
 import { AppPosition, NearbyItem } from '../interfaces/common';
 
-const noop = () => {};
-
 const vtUrlDay = "https://www.arcgis.com/sharing/rest/content/items/63c47b7177f946b49902c24129b87252/resources/styles/root.json";
 const vtUrlNight = "https://www.arcgis.com/sharing/rest/content/items/86f556a2d1fd468181855a35e344567f/resources/styles/root.json";
 
 const url = isDay(new Date()) ? vtUrlDay : vtUrlNight;
 
 const baseVectorTileLayer = new VectorTileLayer({ url });
+
+let mapLoaded = false;
 
 export const webmap = new ArcGISMap({
   basemap: {
@@ -38,8 +38,6 @@ export const view = new MapView({
 
 let center: esri.Point;
 
-center = view.center;
-
 export const locate = new Locate({ view, scale: 9000 });
 view.ui.add(locate, "top-left");
 
@@ -48,6 +46,7 @@ let locateHandler: IHandle | null;
 export const listenForLocate = (updatePosition: (a: { position: AppPosition }) => void) => {
   if (!locateHandler) {
     locateHandler = locate.on("locate", (result: Position) => {
+      mapLoaded = true;
       const { latitude, longitude } = result.coords;
       updatePosition({
         position: {
@@ -59,25 +58,27 @@ export const listenForLocate = (updatePosition: (a: { position: AppPosition }) =
   }
 };
 
-export const initialize = (container: HTMLDivElement) => {
-  view.center = center;
+export const initialize = async (container: HTMLDivElement) => {
+  if (center) {
+    view.center = center;
+  }
   view.container = container;
 
-  view
-    .when()
-    .then(_ => {
-      if (locate.viewModel.state === "disabled") {
-        const handle = init(locate, "viewModel.state", state => {
-          if (state === "ready") {
-            handle.remove();
-            locate.locate();
-          }
-        });
-      } else if (locate.viewModel.state === "ready") {
-        locate.locate();
-      }
-    })
-    .catch(noop);
+  try {
+    await view.when().then();
+    if (!center && locate.viewModel.state === "disabled") {
+      const handle = init(locate, "viewModel.state", (state) => {
+        if (state === "ready") {
+          handle.remove();
+          locate.locate();
+        }
+      });
+    } else if (!center && locate.viewModel.state === "ready") {
+      locate.locate();
+    }
+  }
+  catch {}
+
   return view;
 };
 
@@ -149,3 +150,31 @@ export const updateNearbyLayerSymbols = (color: esri.Color) => {
   });
   nearbyLayer.renderer = renderer;
 }
+
+interface UpdateExtentChangeProps {
+  currentPosition?: AppPosition,
+  showNotification: boolean
+}
+
+export const watchExtentChange = (update: (a: UpdateExtentChangeProps) => void) => {
+  once(view, "extent", () => {
+    whenFalseOnce(view, "interacting", () => {
+        // only want the notification to show
+        // if the map has already been loaded
+        // and the map is currently displayed
+      const isReady = mapLoaded && !!view.container;
+      const props: UpdateExtentChangeProps = {
+        showNotification: isReady
+      };
+      if (view && view.center) {
+        const { latitude, longitude } = view.center;
+        props.currentPosition = {
+          type: "point",
+          latitude, longitude
+        };
+      }
+      update(props);
+      watchExtentChange(update);
+    });
+  });
+};

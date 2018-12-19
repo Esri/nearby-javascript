@@ -19,7 +19,8 @@ export const AppContext = createContext<ContextProps>({
   state: {
     mode: "list",
     isDayTime: isDay(new Date()),
-    items: []
+    items: [],
+    showNotification: false
   },
   setState: (val: any) => val
 });
@@ -32,7 +33,8 @@ export const AppProvider = ({ children, location }: AppProviderProps) => {
     {
       mode: "list",
       items,
-      isDayTime: isDay(new Date())
+      isDayTime: isDay(new Date()),
+      showNotifcation: false
     } as any
   );
 

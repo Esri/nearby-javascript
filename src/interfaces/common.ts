@@ -30,10 +30,12 @@ export interface AppPosition {
 }
 
 export interface AppState {
-  mode: string;
-  items: NearbyItem[];
+  currentPosition?: AppPosition,
   isDayTime: boolean;
+  items: NearbyItem[];
+  mode: string;
   position?: AppPosition;
+  showNotification: boolean;
 }
 
 export interface LatLon {

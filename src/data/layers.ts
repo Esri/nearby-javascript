@@ -54,8 +54,12 @@ const popupTemplate = {
   content: `
     <ul class="mdc-list nearby-popup-content">
       <li class="mdc-list-item"><span class="mdc-list-item__graphic material-icons" aria-hidden="true">place</span>{address}</li>
-      <li class="mdc-list-item"><span class="mdc-list-item__graphic material-icons" aria-hidden="true">phone</span>{phone}</li>
-      <li class="mdc-list-item"><span class="mdc-list-item__graphic material-icons" aria-hidden="true">public</span>{url}</li>
+      <li class="mdc-list-item"><span class="mdc-list-item__graphic material-icons" aria-hidden="true">phone</span>
+        <a href="tel:+1 {phone}">{phone}</a>
+      </li>
+      <li class="mdc-list-item"><span class="mdc-list-item__graphic material-icons" aria-hidden="true">public</span>
+        <a href="{url}">{url}</a>
+      </li>
       <li class="mdc-list-item"><span class="mdc-list-item__graphic material-icons" aria-hidden="true">restaurant_menu</span>{type}</li>
     </ul>
   `

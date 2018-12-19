@@ -5,6 +5,7 @@ import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
 
 import AppBar from "./components/AppBar";
+import Notification from "./components/Notification";
 import AppContainer from "./components/styled/AppContainer";
 import { Placeholder } from "./components/styled/Placeholder";
 import StyledRouter from "./components/styled/Router";
@@ -25,6 +26,7 @@ ReactDOM.render(
               <WebMap path="/map" />
             </StyledRouter>
           </Suspense>
+          <Notification />
         </AppProvider>
       )}
     </Location>

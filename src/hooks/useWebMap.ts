@@ -11,13 +11,13 @@ const useWebMap = (element: HTMLDivElement): useWebMapResponse => {
 
   let mounted = true;
   let cleanup: () => void;
-  let handler: any;
   const loadMap = async () => {
-    if (!handler) {
+    if (mounted) {
       const app = await import("../data/map");
       app.initialize(container);
       app.listenForLocate(setState);
       cleanup = app.cleanup;
+      app.watchExtentChange(setState);
     }
   };
 
@@ -41,10 +41,6 @@ const useWebMap = (element: HTMLDivElement): useWebMapResponse => {
       }
       return () => {
         mounted = false;
-        if (handler) {
-          handler.remove();
-          handler = null;
-        }
         if (cleanup) {
           cleanup();
         }
