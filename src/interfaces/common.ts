@@ -2,6 +2,8 @@ export interface NearbyItem {
   OBJECTID?: string;
   address: string;
   name: string;
+  phone: string,
+  url: string,
   type: string;
   location: {
     x: number;

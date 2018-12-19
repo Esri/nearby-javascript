@@ -29,6 +29,8 @@ export const asNearByItem = (latLon: LatLon) => (
   const item: NearbyItem = {
     address: attributes.Place_addr,
     name: attributes.PlaceName,
+    phone: attributes.Phone,
+    url: attributes.URL,
     type: attributes.Type,
     location: {
       x: location.longitude,

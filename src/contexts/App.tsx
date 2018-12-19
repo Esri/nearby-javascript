@@ -3,8 +3,7 @@ import useGeolocation from "../hooks/useGeolocation";
 import useNearby from "../hooks/useNearby";
 import { isDay } from "../utils/dateUtil";
 
-import { AppState, LatLon } from "../interfaces/common";
-
+import { AppPosition, AppState, LatLon } from "../interfaces/common";
 
 export interface ContextProps {
   state: AppState;
@@ -74,11 +73,12 @@ export const AppProvider = ({ children, location }: AppProviderProps) => {
   useEffect(
     () => {
       const { position } = state;
+      // verify that the position is not the same as the previous one
       if (
         position &&
         latLon &&
-        (position as any).latitude !== (latLon as LatLon).latitude &&
-        (position as any).longitude !== (latLon as LatLon).longitude
+        (position as AppPosition).latitude !== (latLon as LatLon).latitude &&
+        (position as AppPosition).longitude !== (latLon as LatLon).longitude
       ) {
         fetchNearbyItems(position);
       }

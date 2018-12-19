@@ -14,9 +14,9 @@ export const nearby = {
       .addressToLocations({
         location: point,
         distance: 50,
-        categories: ["Coffee shop", "Gas station", "Food", "Hotel"],
+        categories: ["Coffee shop", "Bar or Pub", "Food", "Pizza", "Hotel"],
         maxLocations: 20,
-        outFields: ["Place_addr", "PlaceName", "Type"]
+        outFields: ["Place_addr", "PlaceName", "Phone", "URL", "Type"]
       } as any)
       .then(results => {
         return results.map(result => {
