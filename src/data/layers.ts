@@ -33,6 +33,16 @@ const fields = [
     type: "string"
   },
   {
+    name: "phone",
+    alias: "Phone",
+    type: "string"
+  },
+  {
+    name: "url",
+    alias: "Url",
+    type: "string"
+  },
+  {
     name: "type",
     alias: "Type",
     type: "string"
@@ -41,7 +51,14 @@ const fields = [
 
 const popupTemplate = {
   title: "{name}",
-  content: "{address}"
+  content: `
+    <ul class="mdc-list nearby-popup-content">
+      <li class="mdc-list-item"><span class="mdc-list-item__graphic material-icons" aria-hidden="true">place</span>{address}</li>
+      <li class="mdc-list-item"><span class="mdc-list-item__graphic material-icons" aria-hidden="true">phone</span>{phone}</li>
+      <li class="mdc-list-item"><span class="mdc-list-item__graphic material-icons" aria-hidden="true">public</span>{url}</li>
+      <li class="mdc-list-item"><span class="mdc-list-item__graphic material-icons" aria-hidden="true">restaurant_menu</span>{type}</li>
+    </ul>
+  `
 };
 
 const uniqueValueInfos = [];
