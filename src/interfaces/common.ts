@@ -1,5 +1,5 @@
 export interface NearbyItem {
-  OBJECTID?: string;
+  OBJECTID: string;
   address: string;
   name: string;
   phone: string,
@@ -11,15 +11,6 @@ export interface NearbyItem {
   };
   bearing: string;
   distance: number;
-  icon: string;
-}
-
-export interface AddressItem {
-  name: string;
-  address: string;
-  type: string;
-  distance: number;
-  bearing: string;
   icon: string;
 }
 
@@ -36,6 +27,7 @@ export interface Category {
 
 export interface AppState {
   categories: Category[],
+  currentNearbyItem?: NearbyItem,
   currentPosition?: AppPosition,
   redoSearch: boolean;
   isDayTime: boolean;

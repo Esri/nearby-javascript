@@ -62,7 +62,7 @@ const popupTemplate = {
       <li class="mdc-list-item"><span class="mdc-list-item__graphic material-icons" aria-hidden="true">public</span>
         <a href="{url}">{url}</a>
       </li>
-      <li class="mdc-list-item"><span class="mdc-list-item__graphic material-icons" aria-hidden="true">restaurant_menu</span>{type}</li>
+      <li class="mdc-list-item"><span class="mdc-list-item__graphic material-icons" aria-hidden="true">{icon}</span>{type}</li>
     </ul>
   `
 };

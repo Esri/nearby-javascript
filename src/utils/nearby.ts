@@ -23,10 +23,12 @@ export const distanceBetweenTwoPoints = (
 };
 
 export const asNearByItem = (latLon: LatLon) => (
-  candidate: esri.AddressCandidate
+  candidate: esri.AddressCandidate,
+  idx?: number
 ) => {
   const { attributes, location } = candidate;
   const item: NearbyItem = {
+    OBJECTID: `${idx}`,
     address: attributes.Place_addr,
     name: attributes.PlaceName,
     phone: attributes.Phone,

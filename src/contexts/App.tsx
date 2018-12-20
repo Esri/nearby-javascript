@@ -1,9 +1,10 @@
+import { navigate } from "@reach/router"
 import React, { createContext, useEffect, useReducer } from "react";
 import useGeolocation from "../hooks/useGeolocation";
 import useNearby from "../hooks/useNearby";
 import { isDay } from "../utils/dateUtil";
 
-import { AppPosition, AppState, Category, LatLon } from "../interfaces/common";
+import { AppPosition, AppState, Category, LatLon, NearbyItem } from "../interfaces/common";
 
 export interface ContextProps {
   state: AppState;
@@ -82,6 +83,23 @@ export const AppProvider = ({ children, location }: AppProviderProps) => {
       });
     }
   };
+
+  const selectNearbyItem = async () => {
+    navigate("/map");
+    const app = await import("../data/map");
+    app.selectLocation(state.currentNearbyItem as NearbyItem);
+  };
+
+  // when an item is selected from the list
+  // navigate to the map and select it
+  useEffect(
+    () => {
+      if (state.currentNearbyItem) {
+        selectNearbyItem();
+      }
+    },
+    [ state.currentNearbyItem ]
+  );
 
   // update the conext state when the
   // route changes, a new geolocation

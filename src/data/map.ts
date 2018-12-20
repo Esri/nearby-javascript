@@ -1,4 +1,4 @@
-import { init, once, whenTrueOnce } from "esri/core/watchUtils";
+import { init, once, whenFalseOnce, whenOnce, whenTrueOnce } from "esri/core/watchUtils";
 import VectorTileLayer from "esri/layers/VectorTileLayer";
 import ArcGISMap from "esri/Map";
 import MapView from "esri/views/MapView";
@@ -69,10 +69,6 @@ export const initialize = async (container: HTMLDivElement) => {
   view.container = container;
 
   try {
-    // if (!center) {
-    //   await view.when().then();
-    //   locate.locate();
-    // }
     if (!center && locate.viewModel.state === "disabled") {
       const handle = init(locate, "viewModel.state", async (state) => {
         if (state === "ready") {
@@ -116,8 +112,7 @@ export const addLocations = async (items: NearbyItem[]) => {
   // Create the graphics that will be added to
   // the nearby layer
   const addFeatures = items.map((item, idx) => {
-    item.OBJECTID = `${item.address}-${idx}`;
-    currentItems.push(item.OBJECTID);
+    currentItems.push(`${item.address}-${idx}`);
     return {
       attributes: item,
       geometry: {
@@ -133,6 +128,29 @@ export const addLocations = async (items: NearbyItem[]) => {
   await nearbyLayer.applyEdits({
     deleteFeatures, addFeatures
   });
+};
+
+// Query the item from the Layer
+// switch to the map and open the popup
+// and zoom to that feature
+export const selectLocation = async (item: NearbyItem) => {
+  await whenOnce(view, "ready");
+  const layerView = await view.whenLayerView(nearbyLayer) as esri.FeatureLayerView;
+  if (layerView.updating) {
+    await whenFalseOnce(layerView, "updating");
+  }
+  try {
+    const query = nearbyLayer.createQuery();
+    query.where = `address='${item.address}' AND name='${item.name}'`;
+    const { features } = await layerView.queryFeatures(query);
+    features.forEach(feature => feature.popupTemplate = nearbyLayer.popupTemplate);
+    view.popup.open({
+      location: features[0].geometry,
+      features
+    });
+    await view.goTo(features)
+  } catch {}
+
 };
 
 export const updateBasemapMode = (isDayTime: boolean) => {
