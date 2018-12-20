@@ -113,6 +113,8 @@ module.exports = function(_, arg) {
         {
           from: "./public/.htaccess"
         },
+        // copy custom local worker and compile
+        // it with typescript
         {
           from: "src/workers",
           to: "workers",
@@ -136,7 +138,7 @@ module.exports = function(_, arg) {
       }),
 
       new HtmlWebPackPlugin({
-        title: "ArcGIS Template Application",
+        title: "ArcGIS Nearby Places",
         template: "./public/index.ejs",
         filename: "./index.html",
         favicon: "./public/assets/favicon.ico",

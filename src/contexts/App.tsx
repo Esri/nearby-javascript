@@ -14,7 +14,7 @@ export interface AppProviderProps {
   children: JSX.Element[];
   location: Location;
 }
-// "Coffee shop", "Bar or Pub", "Food", "Pizza", "Hotel"
+
 const defaultCategories: Category[] = [
   {
     name: "Coffee Shop",
