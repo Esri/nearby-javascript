@@ -1,4 +1,5 @@
 import { init, once, whenFalseOnce, whenOnce, whenTrueOnce } from "esri/core/watchUtils";
+import Graphic from "esri/Graphic";
 import VectorTileLayer from "esri/layers/VectorTileLayer";
 import ArcGISMap from "esri/Map";
 import MapView from "esri/views/MapView";
@@ -35,7 +36,8 @@ export const view = new MapView({
     components: ["attribution", "zoom", "compass"]
   },
   popup: {
-    collapseEnabled: false
+    collapseEnabled: false,
+    actions: []
   }
 });
 
@@ -44,6 +46,19 @@ let center: esri.Point;
 export const locate = new Locate({ view, scale: 9000 });
 
 view.ui.add(locate, "top-left");
+
+let routing: any;
+
+view.popup.on("trigger-action", async ({ action }) => {
+  if (!routing) {
+    routing = await import("./routing");
+  }
+  routing.getDirections({
+    start: locate.graphic,
+    stop: view.popup.selectedFeature,
+    view
+  });
+});
 
 let locateHandler: IHandle | null;
 
@@ -143,12 +158,11 @@ export const selectLocation = async (item: NearbyItem) => {
     const query = nearbyLayer.createQuery();
     query.where = `address='${item.address}' AND name='${item.name}'`;
     const { features } = await layerView.queryFeatures(query);
-    features.forEach(feature => feature.popupTemplate = nearbyLayer.popupTemplate);
     view.popup.open({
       location: features[0].geometry,
       features
     });
-    await view.goTo(features)
+    await view.goTo(features);
   } catch {}
 
 };

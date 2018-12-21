@@ -64,7 +64,14 @@ const popupTemplate = {
       </li>
       <li class="mdc-list-item"><span class="mdc-list-item__graphic material-icons" aria-hidden="true">{icon}</span>{type}</li>
     </ul>
-  `
+  `,
+  actions: [
+    {
+      title: "Directions to",
+      id: "directions",
+      className: "esri-icon-directions"
+    } as any
+  ]
 };
 
 const uniqueValueInfos = [];
