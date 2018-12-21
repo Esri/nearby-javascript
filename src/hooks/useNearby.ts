@@ -132,6 +132,7 @@ const useNearby = (latLon: LatLon, categories: Category[]): useNearbyResponse =>
     const nearbyItems = results.map(asNearByItem(latlon));
     setCache(nearbyItems);
     setItems(nearbyItems);
+    return nearbyItems;
   };
 
   useEffect(
