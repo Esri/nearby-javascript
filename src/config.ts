@@ -49,3 +49,6 @@ esriConfig.workers.loaderConfig = {
     }
   ]
 } as any;
+
+export const appId = process.env.ARCGIS_APP_ID;
+export const portalUrl = "https://www.arcgis.com";

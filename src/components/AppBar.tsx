@@ -8,6 +8,7 @@ import {
 } from "rmwc/TopAppBar";
 
 import { AppContext } from "../contexts/App";
+import { Authentication } from "./Authentication";
 import { NavToList, NavToMap } from "./Nav";
 import TopAppBarContainer from "./styled/TopAppBarContainer";
 
@@ -42,6 +43,7 @@ const AppBar = (pops?: any) => {
           <TopAppBarTitle>Nearby Places</TopAppBarTitle>
         </TopAppBarSection>
         <TopAppBarSection alignEnd>
+          <Authentication />
           <TopAppBarActionItem
             aria-label="Filter"
             alt="Filter"

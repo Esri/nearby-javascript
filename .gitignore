@@ -11,6 +11,5 @@ npm-debug.log
 yarn.lock
 package-lock.json
 coverage-final.*
-.firebaserc
-firebase.json
-firebase-debug.log
+*.env
+.netlify/*

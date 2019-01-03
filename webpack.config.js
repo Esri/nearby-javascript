@@ -1,6 +1,7 @@
 const ArcGISPlugin = require("@arcgis/webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+const Dotenv = require("dotenv-webpack")
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const HtmlWebpackInlineSourcePlugin = require("html-webpack-inline-source-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -191,6 +192,11 @@ module.exports = function(_, arg) {
 
   if (arg.mode === "production") {
     config.plugins.push(
+      new Dotenv({
+        path: "./env/production.env"
+      })
+    ),
+    config.plugins.push(
       new WorkboxPlugin.GenerateSW({
         clientsClaim: true,
         skipWaiting: true,
@@ -237,6 +243,13 @@ module.exports = function(_, arg) {
             handler: "staleWhileRevalidate"
           }
         ]
+      })
+    );
+  }
+  else {
+    config.plugins.push(
+      new Dotenv({
+        path: "./env/development.env"
       })
     );
   }

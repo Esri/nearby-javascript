@@ -72,6 +72,7 @@
     "@emotion/styled": "^10.0.4",
     "@reach/router": "^1.2.1",
     "@types/react-router-dom": "^4.3.1",
+    "dotenv-webpack": "^1.6.0",
     "nprogress": "^0.2.0",
     "react": "^16.7.0-alpha.2",
     "react-dom": "^16.7.0-alpha.2",

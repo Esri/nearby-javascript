@@ -32,24 +32,32 @@ Use `npm run serve` to full test that Service Workers are working correctly with
 
 * Login to [ArcGIS for Developers](https://developers.arcgis.com/) and [register](https://developers.arcgis.com/applications/#/) your app to create an Client ID.
 
-* You will need to register your application with a Client ID so that you can take advantage of the premium [Directions and Routing](https://developers.arcgis.com/features/directions/) and [Geocoding](https://developers.arcgis.com/features/geocoding/) Services from the ArcGIS Platform.
+* You will need to register your application with a Client ID so that you can take advantage of the premium [Directions and Routing](https://developers.arcgis.com/features/directions/) Services from the ArcGIS Platform. It is recommended that you create one application ID for development purposes and another application ID for production services.
 
 ![](images/Register1.png)
-* Once you've registered your version of nearby-places, grab a copy of the client id from the registration and set the client id in the applications `src/app/config.ts` file. You will also want to provide the Portal URL for your Organization, such as `"https://<MY-ORGANIZATION>.maps.arcgis.com"`. You can also provide your own WebMap or use the default one provided.
+* Once you have registered your application, copy the client id and create two files in the `env/` folder.
+ - `env/development.env`
+ - `env/production.env`
+
+ In these files you can define the application ID for both environments for your application.
+
+ ```
+ # env/development.env
+ ARCGIS_APP_ID=THISisMYid
+ ```
+
+ The application ID will be injected into your application during the webpack build process using the [dotenv-webpack](https://github.com/mrsteele/dotenv-webpack#readme) plugin. Although you can whitelist your application ID to various domains, it still a good practice to not check these `.env` files into your git repo. The application git repo is already set up to ignore these files.
+
+* You will also want to provide the Portal URL for your Organization, such as `"https://<MY-ORGANIZATION>.maps.arcgis.com"` in the `src/app/config.ts` file.
 
 ```js
 // src/app/config.ts
-/**
- * Registered application id.
- * This is needed to be able to use premium
- * services such as routing and directions.
- */
-export const appId = "<APP-ID>";
+export const appId = process.env.ARCGIS_APP_ID;
 
 /**
  * Users Portal URL.
  */
-export const portalUrl = "https://arcgis.com"; // default Portal URL
+export const portalUrl = "https://www.arcgis.com"; // default Portal URL
 ```
 
 * As part of the registration process, add a redirect uri for your app.  Navigate to the Redirect URIs section at the bottom of the registration page and set the redirect uri as shown for development purposes. You will also want to add a redirect uri for where your application will be deployed.  This redirect uri is the default redirect for `https://www.arcgis.com`.
@@ -64,7 +72,7 @@ When you deploy your application, do not use the same Application ID for develop
 
 ## Demo
 
-* [Live demo](https://arcgis-nearby-places-worker.surge.sh/)
+* [Live demo](https://arcgis-nearby-js.netlify.com/)
 
 ![application](images/nearby-places.gif)
 

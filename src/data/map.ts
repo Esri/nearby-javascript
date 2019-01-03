@@ -1,10 +1,11 @@
 import { init, once, whenFalseOnce, whenOnce, whenTrueOnce } from "esri/core/watchUtils";
-import Graphic from "esri/Graphic";
 import VectorTileLayer from "esri/layers/VectorTileLayer";
 import ArcGISMap from "esri/Map";
 import MapView from "esri/views/MapView";
 import Locate from "esri/widgets/Locate";
 
+import {  checkCurrentStatus } from "../hooks/support/oauth";
+import { verifyUserSignedIn } from "../utils/credentials";
 import { isDay } from "../utils/dateUtil";
 import { nearbyLayer } from "./layers";
 
@@ -50,6 +51,9 @@ view.ui.add(locate, "top-left");
 let routing: any;
 
 view.popup.on("trigger-action", async ({ action }) => {
+  if (!verifyUserSignedIn()) {
+    return alert("Please Sign In to use Directions");
+  }
   if (!routing) {
     routing = await import("./routing");
   }
