@@ -1,7 +1,7 @@
 import DirectionsViewModel from "esri/widgets/Directions/DirectionsViewModel";
 
 import { appId, portalUrl } from "../config";
-import { initialize } from "../hooks/support/oauth";
+import { initialize } from "./oauth";
 
 import esri = __esri;
 

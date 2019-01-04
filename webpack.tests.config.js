@@ -2,6 +2,7 @@ const path = require("path");
 
 const ArcGISPlugin = require("@arcgis/webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
+const Dotenv = require("dotenv-webpack");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
@@ -85,6 +86,9 @@ module.exports = {
     },
 
   plugins: [
+    new Dotenv({
+      path: "./env/production.env"
+    }),
     new CleanWebpackPlugin(["~tmp"]),
     new ArcGISPlugin({
       useDefaultAssetLoaders: false

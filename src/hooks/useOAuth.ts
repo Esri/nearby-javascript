@@ -25,7 +25,7 @@ const useOAuth = () => {
 
   const signIn = async () => {
     if (!oauth) {
-      oauth = await import("./support/oauth");
+      oauth = await import("../data/oauth");
     }
     oauth.initialize(appId, portalUrl);
     const credential = await oauth.signIn();
@@ -42,7 +42,7 @@ const useOAuth = () => {
 
   const signOut = async () => {
     if (!oauth) {
-      oauth = await import("./support/oauth");
+      oauth = await import("../data/oauth");
       oauth.initialize(appId, portalUrl);
     }
     oauth.signOut();
