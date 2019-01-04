@@ -222,10 +222,6 @@ module.exports = function(_, arg) {
             handler: "staleWhileRevalidate"
           },
           {
-            urlPattern: new RegExp("^https://basemaps\.arcgis\.com/"),
-            handler: "staleWhileRevalidate"
-          },
-          {
             urlPattern: new RegExp("^https://arcgis\.com\/sharing/"),
             handler: "staleWhileRevalidate"
           },

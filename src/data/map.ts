@@ -4,7 +4,6 @@ import ArcGISMap from "esri/Map";
 import MapView from "esri/views/MapView";
 import Locate from "esri/widgets/Locate";
 
-import {  checkCurrentStatus } from "../hooks/support/oauth";
 import { verifyUserSignedIn } from "../utils/credentials";
 import { isDay } from "../utils/dateUtil";
 import { nearbyLayer } from "./layers";

@@ -43,15 +43,20 @@ Use `npm run serve` to full test that Service Workers are working correctly with
 
  ```
  # env/development.env
- ARCGIS_APP_ID=THISisMYid
+ ARCGIS_APP_ID=THISisMYdevelopmentID
+ ```
+
+  ```
+ # env/production.env
+ ARCGIS_APP_ID=THISisMYproductionID
  ```
 
  The application ID will be injected into your application during the webpack build process using the [dotenv-webpack](https://github.com/mrsteele/dotenv-webpack#readme) plugin. Although you can whitelist your application ID to various domains, it still a good practice to not check these `.env` files into your git repo. The application git repo is already set up to ignore these files.
 
-* You will also want to provide the Portal URL for your Organization, such as `"https://<MY-ORGANIZATION>.maps.arcgis.com"` in the `src/app/config.ts` file.
+* You will also want to provide the Portal URL for your Organization, such as `"https://<MY-ORGANIZATION>.maps.arcgis.com"` in the `src/config.ts` file.
 
 ```js
-// src/app/config.ts
+// src/config.ts
 export const appId = process.env.ARCGIS_APP_ID;
 
 /**
