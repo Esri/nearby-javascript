@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
+import { List } from "@rmwc/list";
 import React, { useContext } from "react";
-import { List } from "rmwc/List";
 
 import { AppContext } from "../contexts/App";
 import { NearbyCard } from "./NearbyCard";

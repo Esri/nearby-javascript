@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
 import {
   Dialog,
   DialogActions,
   DialogButton,
   DialogContent,
   DialogTitle
-} from "rmwc/Dialog";
+} from "@rmwc/Dialog";
+import React, { useContext } from "react";
 
 import { AppContext } from "../contexts/App";
 import CategoryList from "./CategoryList";

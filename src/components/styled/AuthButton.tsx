@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { TopAppBarActionItem } from "rmwc/TopAppBar";
+import { TopAppBarActionItem } from "@rmwc/top-app-bar";
 
 const AuthButton = styled<React.ComponentType>(TopAppBarActionItem)`
   border: ${(props: any) =>

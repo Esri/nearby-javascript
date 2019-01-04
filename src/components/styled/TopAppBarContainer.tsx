@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { TopAppBar } from "rmwc/TopAppBar";
+import { TopAppBar } from "@rmwc/top-app-bar";
 
 import { AppState } from "../../interfaces/common";
 

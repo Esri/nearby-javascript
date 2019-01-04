@@ -1,11 +1,10 @@
-import React, { useContext } from "react";
-
 import {
   TopAppBarActionItem,
   TopAppBarRow,
   TopAppBarSection,
   TopAppBarTitle
-} from "rmwc/TopAppBar";
+} from "@rmwc/top-app-bar";
+import React, { useContext } from "react";
 
 import { AppContext } from "../contexts/App";
 import { Authentication } from "./Authentication";

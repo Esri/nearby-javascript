@@ -1,6 +1,5 @@
-import { ListItem } from "rmwc/List";
-
 import styled from "@emotion/styled";
+import { ListItem } from "@rmwc/list";
 
 const ListItemContainer = styled(ListItem)`
   cursor: pointer;

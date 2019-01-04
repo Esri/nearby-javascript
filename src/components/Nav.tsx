@@ -1,6 +1,5 @@
+import { TopAppBarActionItem } from "@rmwc/top-app-bar";
 import React from "react";
-
-import { TopAppBarActionItem } from "rmwc/TopAppBar";
 
 import SimpleLink from "./styled/SimpleLink";
 

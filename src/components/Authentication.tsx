@@ -1,5 +1,5 @@
+import { Menu, MenuItem, MenuSurfaceAnchor } from "@rmwc/menu";
 import React, { useState } from "react";
-import { Menu, MenuItem, MenuSurfaceAnchor } from "rmwc/menu";
 
 import AuthButton from "./styled/AuthButton";
 

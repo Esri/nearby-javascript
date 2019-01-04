@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
 import {
   ListItemGraphic,
   ListItemMeta,
   ListItemSecondaryText,
   ListItemText
-} from "rmwc/List";
+} from "@rmwc/list";
+import React, { useContext } from "react";
 
 import { AppContext } from "../contexts/App";
 

@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
 import {
   List
-} from "rmwc/List";
+} from "@rmwc/list";
+import React, { useContext } from "react";
 
 import { AppContext } from "../contexts/App";
 
