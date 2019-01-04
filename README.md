@@ -13,7 +13,7 @@ This application takes advantage of numerous technologies for development purpos
 
 This application also uses [Workbox for Webpack](https://developers.google.com/web/tools/workbox/get-started/webpack) to set up [service workers](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API) for the application to cache application code and files, as well as uses an [appcache fallback](https://developer.mozilla.org/en-US/docs/Web/HTML/Using_the_application_cache) for Internet Explorer, Edge, and Safari.
 
-[Intern](https://theintern.io/) is used for all unit tests and code coverage.
+[Intern](https://theintern.io/) is used for all unit tests.
 
 Feel free to use this project as a starting point for your own applications!
 
@@ -32,7 +32,7 @@ Use `npm run serve` to full test that Service Workers are working correctly with
 
 * Login to [ArcGIS for Developers](https://developers.arcgis.com/) and [register](https://developers.arcgis.com/applications/#/) your app to create an Client ID.
 
-* You will need to register your application with a Client ID so that you can take advantage of the premium [Directions and Routing](https://developers.arcgis.com/features/directions/) Services from the ArcGIS Platform. It is recommended that you create one application ID for development purposes and another application ID for production services.
+* You will need to register your application with a Client ID so that you can take advantage of the premium [Directions and Routing](https://developers.arcgis.com/features/directions/) Services from the ArcGIS Platform. It is recommended that you create one application ID for development purposes and another application ID for production deployments.
 
 ![](images/Register1.png)
 * Once you have registered your application, copy the client id and create two files in the `env/` folder.
