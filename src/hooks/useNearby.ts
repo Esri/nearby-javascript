@@ -130,6 +130,9 @@ const useNearby = (latLon: LatLon, categories: Category[]): useNearbyResponse =>
     const results = await findNearbyPlaces(latlon, categorylist);
     const { asNearByItem } = await import("../utils/nearby");
     const nearbyItems = results.map(asNearByItem(latlon));
+    // clear any current routes that might be displayed on the map
+    const directions = await import("../data/routing");
+    directions.clearDirections();
     setCache(nearbyItems);
     setItems(nearbyItems);
     return nearbyItems;
