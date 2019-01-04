@@ -20,6 +20,10 @@ export const getDirections = async ({ start, stop, view }: RouteDirectionsProps)
   await (directionsVM as any).load();
   directionsVM.stops.removeAll();
   directionsVM.stops.addMany([start, stop]);
+  const walkingTravelMode = directionsVM.travelModes.find(mode => mode.name === "Walking Time");
+  if (walkingTravelMode) {
+    (directionsVM as any).selectedTravelMode = walkingTravelMode;
+  }
   const routeResult = await directionsVM.getDirections();
   return routeResult;
 }

@@ -127,7 +127,7 @@ export const addLocations = async (items: NearbyItem[]) => {
   // empty the current items
   currentItems.length = 0;
 
-  // Create the graphics that will be added to
+  // Create the features that will be added to
   // the nearby layer
   const addFeatures = items.map((item, idx) => {
     currentItems.push(`${item.address}-${idx}`);
