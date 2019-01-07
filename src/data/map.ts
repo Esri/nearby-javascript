@@ -57,8 +57,10 @@ view.popup.on("trigger-action", async ({ action }) => {
     routing = await import("./routing");
   }
   routing.getDirections({
-    start: locate.graphic,
-    stop: view.popup.selectedFeature,
+    // clone the graphics
+    // so originals are not modified
+    start: locate.graphic.clone(),
+    stop: view.popup.selectedFeature.clone(),
     view
   });
 });
