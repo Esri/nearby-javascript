@@ -116,7 +116,7 @@ const emptyItems = [
   }
 ];
 
-type useNearbyResponse = [NearbyItem[], (a: LatLon, b: Category[]) => Promise<void>];
+type useNearbyResponse = [NearbyItem[], (a: LatLon, b: Category[]) => Promise<NearbyItem[]>];
 
 const useNearby = (latLon: LatLon, categories: Category[]): useNearbyResponse => {
   const [cache, setCache] = useLocalStorage(KEY);
