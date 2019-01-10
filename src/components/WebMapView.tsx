@@ -7,7 +7,7 @@ import MapContainer from "./styled/MapContainer";
 const WebMapView = () => {
   const mapRef = useRef<HTMLDivElement>(null);
   const [, setContainer] = useWebMap(mapRef.current as HTMLDivElement);
-  const { state } = useContext(AppContext);
+  const { state, setState } = useContext(AppContext);
   const { items } = state;
 
   useEffect(
@@ -16,6 +16,18 @@ const WebMapView = () => {
     },
     [items, mapRef.current]
   );
+  
+  let mounted = false;
+
+  useEffect(() => {
+    mounted = true;
+    setState({
+      mounted
+    });
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   return <MapContainer ref={mapRef} />;
 };

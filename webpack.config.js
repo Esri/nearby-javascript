@@ -12,8 +12,6 @@ const WorkboxPlugin = require("workbox-webpack-plugin");
 
 const path = require("path");
 const webpack = require("webpack");
-const ts = require("typescript");
-const uglifyJs = require("uglify-js");
 
 module.exports = function(_, arg) {
   const config = {
@@ -113,24 +111,6 @@ module.exports = function(_, arg) {
       new CopyWebpackPlugin([
         {
           from: "./public/.htaccess"
-        },
-        // copy custom local worker and compile
-        // it with typescript
-        {
-          from: "src/workers",
-          to: "workers",
-          transform (fileContent) {
-            const result = ts.transpileModule(fileContent.toString(), {
-              compilerOptions: {
-                module: ts.ModuleKind.AMD,
-                esModuleInterop: true
-              }
-            });
-            return uglifyJs.minify(result.outputText).code.toString();
-          },
-          transformPath (targetPath) {
-            return targetPath.replace(".ts", ".js");
-          }
         }
       ]),
 

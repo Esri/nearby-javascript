@@ -1,14 +1,32 @@
-import { open } from "esri/core/workers";
+import Point from "esri/geometry/Point";
+import Locator from "esri/tasks/Locator";
 import { LatLon } from "../interfaces/common";
-import esri = __esri;
 
-let connection: esri.Connection;
+const geocoder = new Locator({
+  url: "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer"
+});
 
 export const findNearbyPlaces = async (latLon: LatLon, categories: string[]) => {
-  // open local worker to find nearby places
-  if (!connection) {
-    connection = await open("workerScripts/places");
-  }
-  // invoke the find method in our worker
-  return connection.invoke("nearby.find", { latLon, categories });
+  const { latitude, longitude } = latLon;
+  const point = new Point({ longitude, latitude });
+
+  return geocoder
+    .addressToLocations({
+      location: point,
+      distance: 50,
+      categories,
+      maxLocations: 20,
+      outFields: ["Place_addr", "PlaceName", "Phone", "URL", "Type"]
+    } as any)
+    .then(results => {
+      return results.map(result => {
+        return {
+          ...result.toJSON(),
+          location: {
+            latitude: result.location.latitude,
+            longitude: result.location.longitude
+          }
+        };
+      });
+    });
 };

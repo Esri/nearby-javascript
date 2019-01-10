@@ -1,5 +1,5 @@
 import { navigate } from "@reach/router"
-import nprogress from "nprogress";
+// import nprogress from "nprogress";
 import React, { createContext, useEffect, useReducer } from "react";
 import useGeolocation from "../hooks/useGeolocation";
 import useNearby from "../hooks/useNearby";
@@ -44,6 +44,7 @@ export const AppContext = createContext<ContextProps>({
   state: {
     categories: defaultCategories,
     mode: "list",
+    mounted: false,
     isDayTime: isDay(new Date()),
     items: [],
     redoSearch: false,
@@ -61,6 +62,7 @@ export const AppProvider = ({ children, location }: AppProviderProps) => {
     {
       categories: defaultCategories,
       mode: "list",
+      mounted: false,
       items,
       isDayTime: isDay(new Date()),
       redoSearch: false,
@@ -103,20 +105,30 @@ export const AppProvider = ({ children, location }: AppProviderProps) => {
   );
 
   // update the conext state when the
-  // route changes, a new geolocation
-  // has been asked for or when the
-  // nearby items have been updated
+  // route changes
   useEffect(
     () => {
-      nprogress.start();
+      // nprogress.start();
       if (location.pathname === "/map") {
         setState({ mode: "map" });
       } else {
         setState({ mode: "list" });
       }
-      getNearby();
     },
-    [location, latLon, items]
+    [location]
+  );
+
+  // when the items, latLong or
+  // mounted value are true, let's
+  // call the nearby method
+  useEffect(
+    () => {
+      if (state.mounted) {
+        getNearby();
+      }
+      // nprogress.done();
+    },
+    [state.mounted, latLon, items]
   );
 
   // when a new position has been requested
@@ -137,7 +149,7 @@ export const AppProvider = ({ children, location }: AppProviderProps) => {
         fetchNearbyItems(position as AppPosition, categories);
         setState({ redoSearch: false });
       }
-      nprogress.done();
+      // nprogress.done();
     },
     [state.position, state.redoSearch]
   );

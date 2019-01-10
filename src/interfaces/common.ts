@@ -33,6 +33,7 @@ export interface AppState {
   isDayTime: boolean;
   items: NearbyItem[];
   mode: string;
+  mounted: boolean;
   position?: AppPosition;
   showFilter: boolean;
   showNotification: boolean;

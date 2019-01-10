@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { List } from "@rmwc/list";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 
 import { AppContext } from "../contexts/App";
 import { NearbyCard } from "./NearbyCard";
@@ -14,8 +14,21 @@ const ListContainer = styled<any>(List)`
 const renderCards = (items: NearbyItem[]) =>
   items.map((addressItem, idx) => <NearbyCard key={idx} {...addressItem} />);
 
+let mounted = false;
+
 const NearbyPlaces = () => {
-  const { state } = useContext(AppContext);
+  const { state, setState } = useContext(AppContext);
+  
+  useEffect(() => {
+    mounted = true;
+    setState({
+      mounted
+    });
+    return () => {
+      mounted = false;
+    };
+  }, []);
+  
 
   return <ListContainer>{renderCards(state.items)}</ListContainer>;
 };
