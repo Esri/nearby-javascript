@@ -26,7 +26,7 @@ const navs = (mode: string) => {
 const AppBar = (pops?: any) => {
   const { state, setState } = useContext(AppContext);
   const { mode } = state;
-  const [nav, mapOrList] = navs(mode);
+  const [nav, mapOrList] = mode === "normal" ? [null, null] : navs(mode);
 
   const toggleFilter = () => {
     setState({

@@ -88,7 +88,9 @@ export const AppProvider = ({ children, location }: AppProviderProps) => {
   };
 
   const selectNearbyItem = async () => {
-    navigate("/map");
+    if (state.mode === "list") {
+      navigate("/map");
+    }
     const app = await import("../data/map");
     app.selectLocation(state.currentNearbyItem as NearbyItem);
   };
@@ -102,20 +104,6 @@ export const AppProvider = ({ children, location }: AppProviderProps) => {
       }
     },
     [ state.currentNearbyItem ]
-  );
-
-  // update the conext state when the
-  // route changes
-  useEffect(
-    () => {
-      // nprogress.start();
-      if (location.pathname === "/map") {
-        setState({ mode: "map" });
-      } else {
-        setState({ mode: "list" });
-      }
-    },
-    [location]
   );
 
   // when the items, latLong or

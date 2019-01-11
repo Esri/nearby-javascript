@@ -10,7 +10,7 @@ const colorHeaderTransparent = "rgba(0, 121, 193, 0.7)";
 const TopAppBarContainer: any = styled(TopAppBar)`
   position: fixed;
   background: ${(props: AppState) =>
-    props.mode === "list" ? colorHeader : colorHeaderTransparent};
+    (props.mode === "list" || props.mode === "normal") ? colorHeader : colorHeaderTransparent};
 `;
 
 export default TopAppBarContainer;

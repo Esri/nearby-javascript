@@ -10,7 +10,7 @@ export const NavToMap = () => (
 );
 
 export const NavToList = ({ icon }: { icon: string }) => (
-  <SimpleLink to="/">
+  <SimpleLink to="/list">
     <TopAppBarActionItem aria-label="Open List" alt="Open List" icon={icon} />
   </SimpleLink>
 );
