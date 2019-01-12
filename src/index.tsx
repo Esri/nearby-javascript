@@ -37,11 +37,11 @@ ReactDOM.render(
                 matches ? (
                   <AppRouter location={location}>
                     <List path="/list" />
-                    <WebMap isMobile={matches} path="/map" />
+                    <WebMap path="/map" />
                   </AppRouter>
                 ) : (
-                  <Layout isMobile={matches}>
-                    <Home isMobile={matches} />
+                  <Layout>
+                    <Home />
                   </Layout>
                 )}
               </Media>

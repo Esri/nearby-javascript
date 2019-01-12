@@ -1,12 +1,8 @@
-import { RouteComponentProps } from "@reach/router";
+import { RouteComponentProps } from '@reach/router';
 import React, { lazy } from "react";
-
-interface RouteProps extends RouteComponentProps {
-  isMobile: boolean;
-}
 
 // lazy load the core components
 const WebMapView = lazy(() => import("../components/WebMapView"));
-const WebMap = (props: RouteProps) => <WebMapView />;
+const WebMap = (props: RouteComponentProps) => <WebMapView />;
 
 export default WebMap;

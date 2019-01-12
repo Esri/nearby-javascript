@@ -5,7 +5,7 @@ import { AppContext } from "../contexts/App";
 type useWebMapResponse = [HTMLDivElement, (a: HTMLDivElement) => void];
 
 const useWebMap = (element: HTMLDivElement): useWebMapResponse => {
-  const [container, setContainer] = useState<HTMLDivElement>(element);
+  const [ container, setContainer ] = useState<HTMLDivElement>(element);
   const { state, setState } = useContext(AppContext);
   const { items, isDayTime } = state;
 
