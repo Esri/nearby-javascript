@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { List } from "@rmwc/list";
+import { List, ListDivider } from "@rmwc/list";
 import React, { useContext, useEffect } from "react";
 
 import { AppContext } from "../contexts/App";
@@ -16,7 +16,13 @@ const ListContainer = styled<any>(List)`
 `;
 
 const renderCards = (items: NearbyItem[]) =>
-  items.map((addressItem, idx) => <NearbyCard key={idx} {...addressItem} />);
+  items.map(
+    (addressItem, idx) =>
+      [
+        <NearbyCard key={`${idx}-card`} {...addressItem} />,
+        <ListDivider key={`${idx}-divider`} />
+      ]
+  );
 
 let mounted = false;
 
