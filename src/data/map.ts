@@ -116,10 +116,13 @@ export const cleanup = () => {
 
 const currentItems: string[] = [];
 
+const nearbyItemMappedAsKey =
+  (item: NearbyItem, idx: number) => `${item.name}-${item.address}-${idx}`;
+
 export const addLocations = async (items: NearbyItem[]) => {
   // verify we are only updating new items
   if (currentItems.length) {
-    const incomingItems = items.map((item, idx) => `${item.address}-${idx}`);
+    const incomingItems = items.map(nearbyItemMappedAsKey);
     if (currentItems.every((item, idx) => {
       return item === incomingItems[idx];
     })) {
@@ -132,7 +135,7 @@ export const addLocations = async (items: NearbyItem[]) => {
   // Create the features that will be added to
   // the nearby layer
   const addFeatures = items.map((item, idx) => {
-    currentItems.push(`${item.address}-${idx}`);
+    currentItems.push(nearbyItemMappedAsKey(item, idx));
     return {
       attributes: item,
       geometry: {
@@ -161,7 +164,7 @@ export const selectLocation = async (item: NearbyItem) => {
   }
   try {
     const query = nearbyLayer.createQuery();
-    query.where = `address='${item.address}' AND name='${item.name}'`;
+    query.where = `address='${item.address}' AND name='${item.name.replace("'", "''")}'`;
     const { features } = await layerView.queryFeatures(query);
     view.popup.open({
       location: features[0].geometry,
