@@ -3,11 +3,9 @@ import {
 } from "@rmwc/list";
 import React, { useContext } from "react";
 
-import { AppContext } from "../contexts/App";
-
 import ListItemContainer from "../components/styled/ListItemContainer";
 import ListItemIcon from "../components/styled/ListItemIcon";
-
+import { AppContext } from "../contexts/App";
 import { iconType } from "../utils/iconType";
 
 import { Category } from "../interfaces/common";

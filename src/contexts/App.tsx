@@ -40,17 +40,19 @@ const defaultCategories: Category[] = [
   }
 ]
 
+const initialState = {
+  categories: defaultCategories,
+  mode: "list",
+  mounted: false,
+  isDayTime: isDay(new Date()),
+  items: [],
+  redoSearch: false,
+  showFilter: false,
+  showNotification: false
+};
+
 export const AppContext = createContext<ContextProps>({
-  state: {
-    categories: defaultCategories,
-    mode: "list",
-    mounted: false,
-    isDayTime: isDay(new Date()),
-    items: [],
-    redoSearch: false,
-    showFilter: false,
-    showNotification: false
-  },
+  state: initialState,
   setState: (val: any) => val
 });
 
@@ -60,14 +62,8 @@ export const AppProvider = ({ children, location }: AppProviderProps) => {
   const [state, setState] = useReducer<AppState, {}>(
     (currentState, newState) => ({ ...currentState, ...newState }),
     {
-      categories: defaultCategories,
-      mode: "list",
-      mounted: false,
-      items,
-      isDayTime: isDay(new Date()),
-      redoSearch: false,
-      showFilter: false,
-      showNotification: false
+      ...initialState,
+      items
     }
   );
 
