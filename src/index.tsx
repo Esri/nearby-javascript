@@ -19,6 +19,8 @@ import Home from "./pages/home";
 import List from "./pages/list";
 import WebMap from "./pages/webmap";
 
+const DEVICE_WIDTH = 800;
+
 ReactDOM.render(
   <AppThemeProvider
     options={{
@@ -32,11 +34,11 @@ ReactDOM.render(
           <AppProvider location={location}>
             <AppBar />
             <Suspense fallback={<Placeholder />}>
-              <Media query="(max-width: 800px">
+              <Media query={`(max-width: ${DEVICE_WIDTH}px)`}>
               {(matches: any) =>
                 // need to manually check the page width
                 // because safari https://github.com/ArcGIS/nearby-javascript/issues/2
-                matches || document.body.clientWidth < 800 ? (
+                matches || document.body.clientWidth < DEVICE_WIDTH ? (
                   <AppRouter location={location}>
                     <List path="/list" />
                     <WebMap path="/map" />
