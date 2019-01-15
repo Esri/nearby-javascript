@@ -28,7 +28,7 @@ export const getDirections = async ({ start, stop, view }: RouteDirectionsProps)
     (directionsVM as any).selectedTravelMode = walkingTravelMode;
   }
   const routeResult = await directionsVM.getDirections();
-  return routeResult;
+  return (routeResult as any).routeResults[0] as esri.RouteResult;
 }
 
 export const clearDirections = () => {

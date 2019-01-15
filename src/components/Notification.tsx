@@ -1,5 +1,5 @@
 import { Snackbar } from "@rmwc/snackbar";
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 
 import { AppContext } from "../contexts/App";
 

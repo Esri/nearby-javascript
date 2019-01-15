@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useRef } from "react";
 
 import { AppContext } from "../contexts/App";
 import useWebMap from "../hooks/useWebMap";
+import Notification from "./Notification";
 import MapContainer from "./styled/MapContainer";
 
 const WebMapView = () => {
@@ -29,7 +30,11 @@ const WebMapView = () => {
     };
   }, []);
 
-  return <MapContainer ref={mapRef} />;
+  return (
+    <MapContainer ref={mapRef}>
+      <Notification />
+    </MapContainer>
+  );
 };
 
 export default WebMapView;

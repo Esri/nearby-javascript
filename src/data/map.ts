@@ -31,6 +31,7 @@ export const view = new MapView({
   map: webmap,
   center: [-116.5, 33.8],
   scale: 50000,
+  padding: { left: 0, top: 60, right: 0, bottom: 0 },
   ui: {
     components: ["attribution", "zoom", "compass"]
   },
@@ -48,21 +49,42 @@ view.ui.add(locate, "top-left");
 
 let routing: any;
 
-view.popup.on("trigger-action", async ({ action }) => {
-  if (!verifyUserSignedIn()) {
-    return alert("Please Sign In to use Directions");
+let popActionListening = false;
+
+export const listenForPopupActions = (updateCurrentRoute: (a: { currentRoute: {
+  name: string,
+  directions: esri.DirectionsFeatureSet
+} , showDirections: boolean }) => void) => {
+  if (!popActionListening) {
+    view.popup.on("trigger-action", async ({ action }) => {
+      // only handle directions action
+      if (action.id !== "directions") {
+        return;
+      }
+      if (!verifyUserSignedIn()) {
+        return alert("Please Sign In to use Directions");
+      }
+      if (!routing) {
+        routing = await import("./routing");
+      }
+      const route = await routing.getDirections({
+        // clone the graphics
+        // so originals are not modified
+        start: locate.graphic.clone(),
+        stop: view.popup.selectedFeature.clone(),
+        view
+      });
+      if (route) {
+        const { directions } = route;
+        updateCurrentRoute({ currentRoute: {
+          directions,
+          name: view.popup.selectedFeature.attributes.name
+        }, showDirections: true });
+      }
+    });
+    popActionListening = true;
   }
-  if (!routing) {
-    routing = await import("./routing");
-  }
-  routing.getDirections({
-    // clone the graphics
-    // so originals are not modified
-    start: locate.graphic.clone(),
-    stop: view.popup.selectedFeature.clone(),
-    view
-  });
-});
+};
 
 let locateHandler: IHandle | null;
 

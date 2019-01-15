@@ -16,6 +16,7 @@ const useWebMap = (element: HTMLDivElement): useWebMapResponse => {
       const app = await import("../data/map");
       app.initialize(container);
       app.listenForLocate(setState);
+      app.listenForPopupActions(setState);
       cleanup = app.cleanup;
       app.watchExtentChange(setState);
     }

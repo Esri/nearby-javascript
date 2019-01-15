@@ -1,3 +1,5 @@
+import esri = __esri;
+
 export interface NearbyItem {
   OBJECTID: string;
   address: string;
@@ -25,10 +27,16 @@ export interface Category {
   selected: boolean
 }
 
+export interface DirectionsResult {
+  directions: esri.DirectionsFeatureSet,
+  name: string
+}
+
 export interface AppState {
   categories: Category[],
   currentNearbyItem?: NearbyItem,
   currentPosition?: AppPosition,
+  currentRoute?: DirectionsResult;
   redoSearch: boolean;
   isDayTime: boolean;
   items: NearbyItem[];
@@ -36,6 +44,7 @@ export interface AppState {
   mounted: boolean;
   position?: AppPosition;
   showFilter: boolean;
+  showDirections?: boolean;
   showNotification: boolean;
 }
 

@@ -9,7 +9,7 @@ import AppBar from "./components/AppBar";
 import AppRouter from "./components/AppRouter";
 import CategoryFilter from "./components/CategoryFilter";
 import Layout from "./components/Layout";
-import Notification from "./components/Notification";
+// import Notification from "./components/Notification";
 import AppContainer from "./components/styled/AppContainer";
 import { Placeholder } from "./components/styled/Placeholder";
 import AppThemeProvider from "./components/styled/ThemeProvider";
@@ -28,10 +28,10 @@ ReactDOM.render(
       secondary: "#000"
     }}
   >
-    <AppContainer>
       <Location>
         {({ location }: any) => (
           <AppProvider location={location}>
+          <AppContainer>
             <AppBar />
             <Suspense fallback={<Placeholder />}>
               <Media query={`(max-width: ${DEVICE_WIDTH}px)`}>
@@ -50,12 +50,12 @@ ReactDOM.render(
                 )}
               </Media>
             </Suspense>
-            <Notification />
+            </AppContainer>
             <CategoryFilter />
           </AppProvider>
         )}
       </Location>
-    </AppContainer>
+    
   </AppThemeProvider>,
   document.getElementById("root")
 );
