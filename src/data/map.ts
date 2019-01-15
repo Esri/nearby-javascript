@@ -120,6 +120,8 @@ const nearbyItemMappedAsKey =
   (item: NearbyItem, idx: number) => `${item.name}-${item.address}-${idx}`;
 
 export const addLocations = async (items: NearbyItem[]) => {
+  // close popup when new nearby items are added/removed
+  view.popup.close();
   // verify we are only updating new items
   if (currentItems.length) {
     const incomingItems = items.map(nearbyItemMappedAsKey);

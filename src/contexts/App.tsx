@@ -1,5 +1,4 @@
 import { navigate } from "@reach/router"
-// import nprogress from "nprogress";
 import React, { createContext, useEffect, useReducer } from "react";
 import useGeolocation from "../hooks/useGeolocation";
 import useNearby from "../hooks/useNearby";
@@ -106,7 +105,6 @@ export const AppProvider = ({ children, location }: AppProviderProps) => {
       if (state.mounted) {
         getNearby();
       }
-      // nprogress.done();
     },
     [state.mounted, latLon, items]
   );
@@ -129,7 +127,6 @@ export const AppProvider = ({ children, location }: AppProviderProps) => {
         fetchNearbyItems(state.currentPosition as AppPosition, categories);
         setState({ redoSearch: false });
       }
-      // nprogress.done();
     },
     [state.position, state.redoSearch]
   );
