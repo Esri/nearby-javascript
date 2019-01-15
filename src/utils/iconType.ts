@@ -18,7 +18,12 @@ export const iconType = (type: string = "") => {
     tl.includes("sandwich") ||
     tl.includes("burgers") ||
     tl.includes("chicken") ||
-    tl.includes("fondue")
+    tl.includes("fondue") ||
+    tl.includes("steak") ||
+    tl.includes("breakfast") ||
+    tl.includes("lunch") ||
+    tl.includes("dinner") ||
+    tl.includes("diner")
   ) {
     return "local_dining";
   }
