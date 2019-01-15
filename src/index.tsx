@@ -32,11 +32,11 @@ ReactDOM.render(
           <AppProvider location={location}>
             <AppBar />
             <Suspense fallback={<Placeholder />}>
-              <Media query="(max-width: 900px">
+              <Media query="(max-width: 800px">
               {(matches: any) =>
                 // need to manually check the page width
                 // because safari https://github.com/ArcGIS/nearby-javascript/issues/2
-                matches || document.body.clientWidth < 900 ? (
+                matches || document.body.clientWidth < 800 ? (
                   <AppRouter location={location}>
                     <List path="/list" />
                     <WebMap path="/map" />
