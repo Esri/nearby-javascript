@@ -31,7 +31,6 @@ export const view = new MapView({
   map: webmap,
   center: [-116.5, 33.8],
   scale: 50000,
-  padding: { left: 0, top: 60, right: 0, bottom: 0 },
   ui: {
     components: ["attribution", "zoom", "compass"]
   },
