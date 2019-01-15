@@ -23,10 +23,6 @@ const defaultCategories: Category[] = [
     selected: true
   },
   {
-    name: "Bar or Pub",
-    selected: true
-  },
-  {
     name: "Food",
     selected: true
   },
@@ -130,7 +126,7 @@ export const AppProvider = ({ children, location }: AppProviderProps) => {
         fetchNearbyItems(position, categories);
       }
       else if (redoSearch) {
-        fetchNearbyItems(position as AppPosition, categories);
+        fetchNearbyItems(state.currentPosition as AppPosition, categories);
         setState({ redoSearch: false });
       }
       // nprogress.done();

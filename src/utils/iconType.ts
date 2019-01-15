@@ -7,19 +7,20 @@ export const iconType = (type: string = "") => {
     return "local_cafe";
   }
   if (
-    tl.includes("food") ||
-    tl.includes("sandwich") ||
-    tl.includes("burgers") ||
-    tl.includes("chicken")
-  ) {
-    return "local_dining";
-  }
-  if (
     tl.includes("bar") ||
     tl.includes("drinks") ||
     tl.includes("pub")
   ) {
     return "local_bar";
+  }
+  if (
+    tl.includes("food") ||
+    tl.includes("sandwich") ||
+    tl.includes("burgers") ||
+    tl.includes("chicken") ||
+    tl.includes("fondue")
+  ) {
+    return "local_dining";
   }
   if (tl.includes("pizza")) {
     return "local_pizza";
