@@ -212,25 +212,25 @@ export const watchExtentChange = async (update: (a: UpdateExtentChangeProps) => 
     currentPosition: {
       type: "point",
       latitude, longitude
-    },
-    showNotification: false
+    }
   })
 
   await whenTrueOnce(view, "stationary");
   // only want the notification to show
   // if the map has already been loaded
   // and the map is currently displayed
-  const isReady = mapLoaded && !!view.container;
-  const props: UpdateExtentChangeProps = {
-    showNotification: isReady
-  };
   if (view && view.center) {
-    props.currentPosition = {
-      type: "point",
-      latitude: view.center.latitude,
-      longitude: view.center.longitude
+    const isReady = mapLoaded && !!view.container;
+    const props: UpdateExtentChangeProps = {
+      showNotification: isReady,
+      currentPosition: {
+        type: "point",
+        latitude: view.center.latitude,
+        longitude: view.center.longitude
+      }
     };
+    update(props);
   }
-  update(props);
+ 
   watchExtentChange(update);
 };
