@@ -34,7 +34,6 @@ export const signOut = async () => {
   // the credential so it can destroy it
   await signIn();
   IdentityManager.destroyCredentials();
-  location.reload();
 };
 
 export const fetchCredentials = async () => {

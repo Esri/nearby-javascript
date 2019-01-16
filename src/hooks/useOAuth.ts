@@ -46,6 +46,7 @@ const useOAuth = () => {
       oauth.initialize(appId, portalUrl);
     }
     oauth.signOut();
+    setAuthState({ isSignedIn: false });
   };
 
   return [ authState, signIn, signOut ];
