@@ -87,9 +87,6 @@ export const iconType = (type: string = "") => {
     case "Food":
       icon = "local_dining";
       break;
-    case "Bar or Pub":
-      icon = "local_bar";
-      break;
     case "Coffee Shop":
       icon = "local_cafe";
       break;
