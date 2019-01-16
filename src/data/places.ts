@@ -1,10 +1,10 @@
 import Point from "esri/geometry/Point";
 import Locator from "esri/tasks/Locator";
+import { geocodeURL } from "../config";
 import { LatLon } from "../interfaces/common";
+import { categoryForFoodType } from "../utils/iconType";
 
-const geocoder = new Locator({
-  url: "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer"
-});
+const geocoder = new Locator({ url: geocodeURL });
 
 export const findNearbyPlaces = async (latLon: LatLon, categories: string[]) => {
   const { latitude, longitude } = latLon;
@@ -19,7 +19,16 @@ export const findNearbyPlaces = async (latLon: LatLon, categories: string[]) => 
       outFields: ["Place_addr", "PlaceName", "Phone", "URL", "Type"]
     } as any)
     .then(results => {
-      return results.map(result => {
+      return results
+        // do a client side filter of results
+        // for example, Pizza is a sub-category of Food,
+        // but user may want to filter Pizza results out
+        .filter(result => {
+          const type = result.attributes.Type;
+          const category = categoryForFoodType(type);
+          return categories.indexOf(category) > -1;
+        })
+        .map(result => {
         return {
           ...result.toJSON(),
           location: {

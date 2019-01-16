@@ -69,7 +69,7 @@ const foodTypes = [
   "Winery"
 ];
 
-const categoryForFoodType =
+export const categoryForFoodType =
   (type: string) => foodTypes.indexOf(type) > -1 ? "Food" : type;
 
 export const iconType = (type: string = "") => {

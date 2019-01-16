@@ -50,5 +50,6 @@ esriConfig.workers.loaderConfig = {
   ]
 } as any;
 
+export const geocodeURL = "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer";
 export const appId = process.env.ARCGIS_APP_ID;
 export const portalUrl = "https://www.arcgis.com";
