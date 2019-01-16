@@ -100,6 +100,13 @@ export const listenForLocate = (updatePosition: (a: { position: AppPosition }) =
         }
       });
     });
+    locate.on("locate-error", () => {
+      // permission probably denied or not https
+      mapLoaded = true;
+      // since permission denied or not https
+      // remove the widget from the view
+      view.ui.remove(locate);
+    });
   }
 };
 

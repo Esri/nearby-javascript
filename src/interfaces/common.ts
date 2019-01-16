@@ -37,12 +37,12 @@ export interface AppState {
   currentNearbyItem?: NearbyItem,
   currentPosition?: AppPosition,
   currentRoute?: DirectionsResult;
-  redoSearch: boolean;
   isDayTime: boolean;
   items: NearbyItem[];
   mode: string;
   mounted: boolean;
   position?: AppPosition;
+  redoSearch: boolean;
   showFilter: boolean;
   showDirections?: boolean;
   showNotification: boolean;

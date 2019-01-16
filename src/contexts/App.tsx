@@ -76,6 +76,22 @@ export const AppProvider = ({ children, location }: AppProviderProps) => {
         items
       });
     }
+    // in this case, it's possible that geolocation permission was denied
+    // so continue to treat the currentPosition as the latest Position
+    else if (
+      state.currentPosition &&
+      state.currentPosition.latitude !== 0 &&
+      state.currentPosition.longitude !== 0
+    ) {
+      setState({
+        position: {
+          type: "point",
+          latitude: state.currentPosition.latitude,
+          longitude: state.currentPosition.longitude
+        },
+        items
+      });
+    }
   };
 
   const selectNearbyItem = async () => {
