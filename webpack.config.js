@@ -111,6 +111,10 @@ module.exports = function(_, arg) {
       new CopyWebpackPlugin([
         {
           from: "./public/.htaccess"
+        },
+        // for netlify redirects
+        {
+          from: "./public/_redirects"
         }
       ]),
 
