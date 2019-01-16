@@ -1,41 +1,99 @@
-export const iconType = (type: string = "") => {
-  const tl = type.toLowerCase();
-  if (
-    tl.includes("coffee") ||
-    tl.includes("cafe")
-  ) {
-    return "local_cafe";
-  }
-  if (
-    tl.includes("bar") ||
-    tl.includes("drinks") ||
-    tl.includes("pub")
-  ) {
-    return "local_bar";
-  }
-  if (
-    tl.includes("food") ||
-    tl.includes("sandwich") ||
-    tl.includes("burgers") ||
-    tl.includes("chicken") ||
-    tl.includes("fondue") ||
-    tl.includes("steak") ||
-    tl.includes("breakfast") ||
-    tl.includes("lunch") ||
-    tl.includes("dinner") ||
-    tl.includes("diner")
-  ) {
-    return "local_dining";
-  }
-  if (tl.includes("pizza")) {
-    return "local_pizza";
-  }
-  if (
-    tl.includes("hotel") ||
-    tl.includes("motel")
-  ) {
-    return "hotel";
-  }
+const foodTypes = [
+  "African Food",
+  "American Food",
+  "Argentinean Food",
+  "Australian Food",
+  "Austrian Food",
+  "Bakery",
+  "BBQ and Southern Food",
+  "Belgian Food",
+  "Bistro",
+  "Brazilian Food",
+  "Breakfast",
+  "Brewpub",
+  "British Isles Food",
+  "Burgers",
+  "Cajun and Creole Food",
+  "Californian Food",
+  "Caribbean Food",
+  "Chicken Restaurant",
+  "Chilean Food",
+  "Chinese Food",
+  "Continental Food",
+  "Creperie",
+  "East European Food",
+  "Fast Food",
+  "Filipino Food",
+  "Fondue",
+  "French Food",
+  "Fusion Food",
+  "German Food",
+  "Greek Food",
+  "Grill",
+  "Hawaiian Food",
+  "Ice Cream Shop",
+  "Indian Food",
+  "Indonesian Food",
+  "International Food",
+  "Irish Food",
+  "Italian Food",
+  "Japanese Food",
+  "Korean Food",
+  "Kosher Food",
+  "Latin American Food",
+  "Malaysian Food",
+  "Mexican Food",
+  "Middle Eastern Food",
+  "Moroccan Food",
+  "Other Restaurant",
+  "Pastries",
+  "Polish Food",
+  "Portuguese Food",
+  "Russian Food",
+  "Sandwich Shop",
+  "Scandinavian Food",
+  "Seafood",
+  "Snacks",
+  "South American Food",
+  "Southeast Asian Food",
+  "Southwestern Food",
+  "Spanish Food",
+  "Steak House",
+  "Sushi",
+  "Swiss Food",
+  "Tapas",
+  "Thai Food",
+  "Turkish Food",
+  "Vegetarian Food",
+  "Vietnamese Food",
+  "Winery"
+];
 
-  return "help";
+const categoryForFoodType =
+  (type: string) => foodTypes.indexOf(type) > -1 ? "Food" : type;
+
+export const iconType = (type: string = "") => {
+  let icon = "help";
+
+  const category = categoryForFoodType(type);
+
+  switch(category) {
+    case "Pizza":
+      icon = "local_pizza";
+      break;
+    case "Hotel":
+      icon = "hotel";
+      break;
+    case "Food":
+      icon = "local_dining";
+      break;
+    case "Bar or Pub":
+      icon = "local_bar";
+      break;
+    case "Coffee Shop":
+      icon = "local_cafe";
+      break;
+  } 
+
+  return icon;
 };
