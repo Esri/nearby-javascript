@@ -134,8 +134,8 @@ export const AppProvider = ({ children, location }: AppProviderProps) => {
       if (
         position &&
         latLon &&
-        (position as AppPosition).latitude !== (latLon as LatLon).latitude &&
-        (position as AppPosition).longitude !== (latLon as LatLon).longitude
+        position.latitude !== (latLon as LatLon).latitude &&
+        position.longitude !== (latLon as LatLon).longitude
       ) {
         fetchNearbyItems(position, categories);
       }

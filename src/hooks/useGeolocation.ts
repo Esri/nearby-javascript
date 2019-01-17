@@ -21,14 +21,17 @@ const useGeolocation = () => {
     }
   };
 
-  useEffect(() => {
-    if (mounted) {
-      locate();
-    }
-    return () => {
-      mounted = false;
-    };
-  }, []);
+  useEffect(
+    () => {
+      if (mounted) {
+        locate();
+      }
+      return () => {
+        mounted = false;
+      };
+    },
+  []
+  );
   return [state, locate];
 };
 

@@ -20,15 +20,18 @@ const WebMapView = () => {
   
   let mounted = false;
 
-  useEffect(() => {
-    mounted = true;
-    setState({
-      mounted
-    });
-    return () => {
-      mounted = false;
-    };
-  }, []);
+  useEffect(
+    () => {
+      mounted = true;
+      setState({
+        mounted
+      });
+      return () => {
+        mounted = false;
+      };
+    },
+    []
+  );
 
   return (
     <MapContainer ref={mapRef}>

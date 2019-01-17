@@ -21,15 +21,18 @@ let mounted = false;
 const NearbyPlaces = () => {
   const { state, setState } = useContext(AppContext);
   
-  useEffect(() => {
-    mounted = true;
-    setState({
-      mounted
-    });
-    return () => {
-      mounted = false;
-    };
-  }, []);
+  useEffect(
+    () => {
+      mounted = true;
+      setState({
+        mounted
+      });
+      return () => {
+        mounted = false;
+      };
+    },
+    []
+  );
   
 
   return <ListContainer>{renderCards(state.items)}</ListContainer>;

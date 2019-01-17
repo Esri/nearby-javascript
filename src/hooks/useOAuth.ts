@@ -14,12 +14,15 @@ const useOAuth = () => {
     initialState
   );
 
-  useEffect(() => {
-    const isSignedIn = verifyUserSignedIn();
-    if (isSignedIn) {
-      setAuthState({ isSignedIn });
-    }
-  }, []);
+  useEffect(
+    () => {
+      const isSignedIn = verifyUserSignedIn();
+      if (isSignedIn) {
+        setAuthState({ isSignedIn });
+      }
+    },
+    []
+  );
 
   let oauth: any = null;
 

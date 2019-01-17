@@ -8,16 +8,19 @@ const Layout = ({ children } : any) => {
 
   let mounted = false;
 
-  useEffect(() => {
-    if (!mounted) {
-      mounted = true;
-      setState({
-        mode: "normal"
-      })
-    }
+  useEffect(
+    () => {
+      if (!mounted) {
+        mounted = true;
+        setState({
+          mode: "normal"
+        })
+      }
 
-    return () => mounted = false;
-  }, []);
+      return () => mounted = false;
+    },
+    []
+  );
 
   return <Container>{children}</Container>;
 };
