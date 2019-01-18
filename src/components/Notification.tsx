@@ -8,7 +8,8 @@ const Notification = () => {
 
   const onActionHandler = () => {
     setState({
-      position: state.currentPosition
+      position: state.currentPosition,
+      redoSearch: true
     });
   }
 

@@ -1,4 +1,5 @@
 import esri = __esri;
+import { bool } from 'prop-types';
 
 export interface NearbyItem {
   OBJECTID: string;
@@ -37,6 +38,7 @@ export interface AppState {
   currentNearbyItem?: NearbyItem,
   currentPosition?: AppPosition,
   currentRoute?: DirectionsResult;
+  hasGeolocationPermission?: boolean;
   isDayTime: boolean;
   items: NearbyItem[];
   mode: string;

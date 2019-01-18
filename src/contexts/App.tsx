@@ -51,7 +51,7 @@ export const AppContext = createContext<ContextProps>({
   setState: (val: any) => val
 });
 
-export const AppProvider = ({ children, location }: AppProviderProps) => {
+export const AppProvider = ({ children }: AppProviderProps) => {
   const [latLon] = useGeolocation();
   const [items, fetchNearbyItems] = useNearby(latLon as LatLon, defaultCategories);
   const [state, setState] = useReducer<AppState, {}>(
@@ -129,9 +129,10 @@ export const AppProvider = ({ children, location }: AppProviderProps) => {
   // fetch a new list of nearby items
   useEffect(
     () => {
-      const { categories, position, redoSearch } = state;
+      const { categories, hasGeolocationPermission, position, redoSearch } = state;
       // verify that the position is not the same as the previous one
       if (
+        hasGeolocationPermission &&
         position &&
         latLon &&
         position.latitude !== (latLon as LatLon).latitude &&

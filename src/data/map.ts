@@ -88,12 +88,14 @@ export const listenForPopupActions = (updateCurrentRoute: (a: { currentRoute: {
 
 let locateHandler: IHandle | null;
 
-export const listenForLocate = (updatePosition: (a: { position: AppPosition }) => void) => {
+interface ListenForLocateProps { position?: AppPosition, hasGeolocationPermission?: boolean };
+
+export const listenForLocate = (update: (a: ListenForLocateProps) => void) => {
   if (!locateHandler) {
     locateHandler = locate.on("locate", (result: Position) => {
       mapLoaded = true;
       const { latitude, longitude } = result.coords;
-      updatePosition({
+      update({
         position: {
           type: "point",
           latitude, longitude
@@ -106,6 +108,10 @@ export const listenForLocate = (updatePosition: (a: { position: AppPosition }) =
       // since permission denied or not https
       // remove the widget from the view
       view.ui.remove(locate);
+      update({
+        hasGeolocationPermission: false
+      });
+      alert("Search the map to find nearby places");
     });
   }
 };
@@ -148,8 +154,6 @@ const nearbyItemMappedAsKey =
   (item: NearbyItem, idx: number) => `${item.name}-${item.address}-${idx}`;
 
 export const addLocations = async (items: NearbyItem[]) => {
-  // close popup when new nearby items are added/removed
-  view.popup.close();
   // verify we are only updating new items
   if (currentItems.length) {
     const incomingItems = items.map(nearbyItemMappedAsKey);
@@ -181,6 +185,8 @@ export const addLocations = async (items: NearbyItem[]) => {
   await nearbyLayer.applyEdits({
     deleteFeatures, addFeatures
   });
+  // close popup when new nearby items are added/removed
+  view.popup.close();
 };
 
 // Query the item from the Layer
