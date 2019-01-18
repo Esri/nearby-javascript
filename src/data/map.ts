@@ -102,16 +102,18 @@ export const listenForLocate = (update: (a: ListenForLocateProps) => void) => {
         }
       });
     });
-    locate.on("locate-error", () => {
+    locate.on("locate-error", (error) => {
       // permission probably denied or not https
-      mapLoaded = true;
-      // since permission denied or not https
-      // remove the widget from the view
-      view.ui.remove(locate);
-      update({
-        hasGeolocationPermission: false
-      });
-      alert("Search the map to find nearby places");
+      if (error.code && (error.code === 1 || error.code === 2)) {
+        mapLoaded = true;
+        // since permission denied or not https
+        // remove the widget from the view
+        view.ui.remove(locate);
+        update({
+          hasGeolocationPermission: false
+        });
+        alert("Search the map to find nearby places");
+      }
     });
   }
 };
