@@ -1,3 +1,4 @@
+import nprogress from "nprogress";
 import { useEffect, useState } from "react";
 import { useLocalStorage } from "react-use";
 
@@ -125,6 +126,7 @@ const useNearby = (latLon: LatLon, categories: Category[]): useNearbyResponse =>
   const [items, setItems] = useState<NearbyItem[]>(initialItems);
 
   const fetchNearbyItems = async (latlon: LatLon, placeCategories: Category[]) => {
+    nprogress.start();
     const categorylist = placeCategories.filter(x => x.selected).map(x => x.name);
     const { findNearbyPlaces } = await import("../data/places");
     const results = await findNearbyPlaces(latlon, categorylist);
@@ -135,6 +137,7 @@ const useNearby = (latLon: LatLon, categories: Category[]): useNearbyResponse =>
     directions.clearDirections();
     setCache(nearbyItems);
     setItems(nearbyItems);
+    nprogress.done();
     return nearbyItems;
   };
 
