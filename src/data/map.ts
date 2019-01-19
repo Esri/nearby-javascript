@@ -102,9 +102,9 @@ export const listenForLocate = (update: (a: ListenForLocateProps) => void) => {
         }
       });
     });
-    locate.on("locate-error", (error) => {
+    locate.on("locate-error", ({ error }) => {
       // permission probably denied or not https
-      if (error.code && (error.code === 1 || error.code === 2)) {
+      if (error && error.code) {
         mapLoaded = true;
         // since permission denied or not https
         // remove the widget from the view
