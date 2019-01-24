@@ -41,12 +41,7 @@ esriConfig.workers.loaderConfig = {
       location: DEFAULT_WORKER_URL + "maquette-jsx",
       main: "dist/maquette-jsx.umd"
     },
-    { name: "tslib", location: DEFAULT_WORKER_URL + "tslib", main: "tslib" },
-    {
-      name: "workerScripts",
-      location:
-        window.location.href.replace(/\/([#^/]|[#/map^/])+$/, "/") + "workers/"
-    }
+    { name: "tslib", location: DEFAULT_WORKER_URL + "tslib", main: "tslib" }
   ]
 } as any;
 

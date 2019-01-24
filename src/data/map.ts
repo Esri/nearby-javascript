@@ -9,7 +9,7 @@ import { isDay } from "../utils/dateUtil";
 import { nearbyLayer } from "./layers";
 
 import esri = __esri;
-import { AppPosition, NearbyItem } from '../interfaces/common';
+import { ListenForLocateProps, NearbyItem, UpdateExtentChangeProps } from '../interfaces/common';
 
 const vtUrlDay = "https://www.arcgis.com/sharing/rest/content/items/63c47b7177f946b49902c24129b87252/resources/styles/root.json";
 const vtUrlNight = "https://www.arcgis.com/sharing/rest/content/items/86f556a2d1fd468181855a35e344567f/resources/styles/root.json";
@@ -87,8 +87,6 @@ export const listenForPopupActions = (updateCurrentRoute: (a: { currentRoute: {
 };
 
 let locateHandler: IHandle | null;
-
-interface ListenForLocateProps { position?: AppPosition, hasGeolocationPermission?: boolean };
 
 export const listenForLocate = (update: (a: ListenForLocateProps) => void) => {
   if (!locateHandler) {
@@ -234,11 +232,6 @@ export const updateNearbyLayerSymbols = (color: esri.Color) => {
     (info.symbol as esri.SimpleMarkerSymbol).color = color;
   });
   nearbyLayer.renderer = renderer;
-}
-
-interface UpdateExtentChangeProps {
-  currentPosition?: AppPosition,
-  showNotification?: boolean
 }
 
 export const watchExtentChange = async (update: (a: UpdateExtentChangeProps) => void) => {

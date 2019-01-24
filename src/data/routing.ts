@@ -3,15 +3,11 @@ import DirectionsViewModel from "esri/widgets/Directions/DirectionsViewModel";
 import { appId, portalUrl } from "../config";
 import { initialize } from "./oauth";
 
+import { RouteDirectionsProps } from "../interfaces/common";
+
 import esri = __esri;
 
 const directionsVM = new DirectionsViewModel();
-
-export interface RouteDirectionsProps {
-  start: esri.Graphic,
-  stop: esri.Graphic,
-  view: esri.MapView
-}
 
 export const getDirections = async ({ start, stop, view }: RouteDirectionsProps) => {
   // set up authentication if it is valid

@@ -4,17 +4,8 @@ import useGeolocation from "../hooks/useGeolocation";
 import useNearby from "../hooks/useNearby";
 import { isDay } from "../utils/dateUtil";
 
-import { AppPosition, AppState, Category, LatLon, NearbyItem } from "../interfaces/common";
+import { AppPosition, AppProviderProps, AppState, Category, ContextProps, LatLon, NearbyItem } from "../interfaces/common";
 
-export interface ContextProps {
-  state: AppState;
-  setState: React.Dispatch<{}>;
-}
-
-export interface AppProviderProps {
-  children: JSX.Element[];
-  location: Location;
-}
 
 const defaultCategories: Category[] = [
   {
