@@ -3,6 +3,9 @@ import { useEffect, useReducer } from "react";
 import { appId, portalUrl } from "../config";
 import { verifyUserSignedIn } from "../utils/credentials";
 
+/**
+ * Hook to manage authentication
+ */
 const useOAuth = () => {
 
   const initialState = {

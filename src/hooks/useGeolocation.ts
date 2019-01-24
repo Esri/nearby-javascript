@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 
 import { LatLon } from "../interfaces/common";
 
+/**
+ * Hook to determine current geolocation
+ */
 const useGeolocation = () => {
   const [state, setState] = useState<LatLon>({
     latitude: 0,

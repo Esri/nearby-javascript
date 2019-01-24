@@ -13,7 +13,7 @@ import { NavToList, NavToMap } from "./Nav";
 import TopAppBarContainer from "./styled/TopAppBarContainer";
 
 const navs = (mode: string) => {
-  const nav = mode === "map" ? <NavToList icon={"navigate_before"} /> : [];
+  const nav: JSX.Element | [] = mode === "map" ? <NavToList icon={"navigate_before"} /> : [];
   const mapOrList =
     mode === "list" ? (
       <NavToMap />

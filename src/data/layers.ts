@@ -70,26 +70,19 @@ const popupTemplate = {
       title: "Directions to",
       id: "directions",
       className: "esri-icon-directions"
-    } as any
-  ]
+    }
+  ] as esri.ActionButton[]
 };
-
-const uniqueValueInfos = [];
-
-for (const value in svgSymbolMap) {
-  if (value) {
-    uniqueValueInfos.push({
-      value,
-      symbol: svgSymbol(value)
-    });
-  }
-}
 
 const renderer: any = {
   type: "unique-value",
   field: "icon",
   symbol: svgSymbol("default"),
-  uniqueValueInfos
+  uniqueValueInfos: Object.keys(svgSymbolMap)
+    .map(infoValue => ({
+      value: infoValue,
+      symbol: svgSymbol(infoValue)
+    }))
 };
 
 export const nearbyLayer = new FeatureLayer({

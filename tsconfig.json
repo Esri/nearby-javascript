@@ -13,7 +13,6 @@
     "declaration": false,
     "noLib": false,
     "preserveConstEnums": true,
-    "strictNullChecks": true,
     "noEmit": true,
     
     "outDir": "./dist/",

@@ -69,9 +69,18 @@ const foodTypes = [
   "Winery"
 ];
 
+/**
+ * Check if given type is in the Food category
+ * @param type 
+ */
 export const categoryForFoodType =
   (type: string) => foodTypes.indexOf(type) > -1 ? "Food" : type;
 
+/**
+ * Find correct icon name for a given
+ * type of place
+ * @param type 
+ */
 export const iconType = (type: string = "") => {
   let icon = "help";
 

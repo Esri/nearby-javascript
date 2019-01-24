@@ -6,6 +6,10 @@ import { categoryForFoodType } from "../utils/iconType";
 
 const geocoder = new Locator({ url: geocodeURL });
 
+/**
+ * Use the Locator to search for nearby places
+ * with a given lat lon and categories
+ */
 export const findNearbyPlaces = async (latLon: LatLon, categories: string[]) => {
   const { latitude, longitude } = latLon;
   const point = new Point({ longitude, latitude });

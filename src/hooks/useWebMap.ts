@@ -4,6 +4,11 @@ import { AppContext } from "../contexts/App";
 
 type useWebMapResponse = [HTMLDivElement, (a: HTMLDivElement) => void];
 
+/**
+ * Hook to manage creation of map and communication
+ * with application context
+ * @param element 
+ */
 const useWebMap = (element: HTMLDivElement): useWebMapResponse => {
   const [ container, setContainer ] = useState<HTMLDivElement>(element);
   const { state, setState } = useContext(AppContext);

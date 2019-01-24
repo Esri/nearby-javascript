@@ -119,6 +119,11 @@ const emptyItems = [
 
 type useNearbyResponse = [NearbyItem[], (a: LatLon, b: Category[]) => Promise<NearbyItem[]>];
 
+/**
+ * Hook to find nearby places from lat/lon and list of categories
+ * @param latLon 
+ * @param categories 
+ */
 const useNearby = (latLon: LatLon, categories: Category[]): useNearbyResponse => {
   const [cache, setCache] = useLocalStorage(KEY);
   const initialItems = (cache && cache.length) ? cache : emptyItems;

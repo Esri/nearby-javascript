@@ -16,6 +16,10 @@ export const defaultSvg =
 
 const color = isDay(new Date()) ? "black" : "white";
 
+/**
+ * Find the correct svg symbol
+ * @param type 
+ */
 export const svgSymbol = (type: string) => {
   return {
     type: "simple-marker",

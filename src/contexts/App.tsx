@@ -26,7 +26,7 @@ const defaultCategories: Category[] = [
   }
 ]
 
-const initialState = {
+const initialState: AppState = {
   categories: defaultCategories,
   mode: "list",
   mounted: false,
@@ -37,11 +37,13 @@ const initialState = {
   showNotification: false
 };
 
+// main application context
 export const AppContext = createContext<ContextProps>({
   state: initialState,
   setState: (val: any) => val
 });
 
+// main application provider
 export const AppProvider = ({ children }: AppProviderProps) => {
   const [latLon] = useGeolocation();
   const [items, fetchNearbyItems] = useNearby(latLon as LatLon, defaultCategories);

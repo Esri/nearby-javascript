@@ -8,6 +8,11 @@ import { LatLon, NearbyItem } from "../interfaces/common";
 
 import esri = __esri;
 
+/**
+ * Calculate the distance between two points
+ * @param pointA 
+ * @param pointB 
+ */
 export const distanceBetweenTwoPoints = (
   pointA: LatLon,
   pointB: LatLon
@@ -22,6 +27,11 @@ export const distanceBetweenTwoPoints = (
   return geodesicLength(line, "miles");
 };
 
+/**
+ * Convert AddressCandidate to a NearbyItem
+ * for use in application
+ * @param latLon 
+ */
 export const asNearByItem = (latLon: LatLon) => (
   candidate: esri.AddressCandidate,
   idx?: number

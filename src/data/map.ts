@@ -18,7 +18,15 @@ const url = isDay(new Date()) ? vtUrlDay : vtUrlNight;
 
 const baseVectorTileLayer = new VectorTileLayer({ url });
 
+const currentItems: string[] = [];
+
+const nearbyItemMappedAsKey =
+  (item: NearbyItem, idx: number) => `${item.name}-${item.address}-${idx}`;
+
+let center: esri.Point;
+let locateHandler: IHandle | null;
 let mapLoaded = false;
+let popActionListening = false;
 
 export const webmap = new ArcGISMap({
   basemap: {
@@ -41,118 +49,115 @@ export const view = new MapView({
   }
 });
 
-let center: esri.Point;
-
 export const locate = new Locate({ view, scale: 9000 });
 
 view.ui.add(locate, "top-left");
-
-let routing: any;
-
-let popActionListening = false;
 
 export const listenForPopupActions = (updateCurrentRoute: (a: { currentRoute: {
   name: string,
   directions: esri.DirectionsFeatureSet
 } , showDirections: boolean }) => void) => {
-  if (!popActionListening) {
-    view.popup.on("trigger-action", async ({ action }) => {
-      // only handle directions action
-      if (action.id !== "directions") {
-        return;
-      }
-      if (!verifyUserSignedIn()) {
-        return alert("Please Sign In to use Directions");
-      }
-      if (!routing) {
-        routing = await import("./routing");
-      }
-      const route = await routing.getDirections({
-        // clone the graphics
-        // so originals are not modified
-        start: locate.graphic.clone(),
-        stop: view.popup.selectedFeature.clone(),
-        view
-      });
-      if (route) {
-        const { directions } = route;
-        updateCurrentRoute({ currentRoute: {
-          directions,
-          name: view.popup.selectedFeature.attributes.name
-        }, showDirections: true });
-      }
-    });
-    popActionListening = true;
+  if (popActionListening) {
+    return;
   }
+  view.popup.on("trigger-action", async ({ action }) => {
+    // only handle directions action
+    if (action.id !== "directions") {
+      return;
+    }
+    if (!verifyUserSignedIn()) {
+      return alert("Please Sign In to use Directions");
+    }
+    const routing = await import("./routing");
+    const route = await routing.getDirections({
+      // clone the graphics
+      // so originals are not modified
+      start: locate.graphic.clone(),
+      stop: view.popup.selectedFeature.clone(),
+      view
+    });
+    if (route) {
+      const { directions } = route;
+      updateCurrentRoute({ currentRoute: {
+        directions,
+        name: view.popup.selectedFeature.attributes.name
+      }, showDirections: true });
+    }
+  });
+  popActionListening = true;
 };
-
-let locateHandler: IHandle | null;
 
 export const listenForLocate = (update: (a: ListenForLocateProps) => void) => {
-  if (!locateHandler) {
-    locateHandler = locate.on("locate", (result: Position) => {
-      mapLoaded = true;
-      const { latitude, longitude } = result.coords;
-      update({
-        position: {
-          type: "point",
-          latitude, longitude
-        }
-      });
-    });
-    locate.on("locate-error", ({ error }) => {
-      // permission probably denied or not https
-      if (error && error.code) {
-        mapLoaded = true;
-        // since permission denied or not https
-        // remove the widget from the view
-        view.ui.remove(locate);
-        update({
-          hasGeolocationPermission: false
-        });
-        alert("Search the map to find nearby places");
+  if (locateHandler) {
+    return;
+  }
+  locateHandler = locate.on("locate", (result: Position) => {
+    mapLoaded = true;
+    const { latitude, longitude } = result.coords;
+    update({
+      position: {
+        type: "point",
+        latitude, longitude
       }
     });
-  }
+  });
+  locate.on("locate-error", ({ error }) => {
+    // permission probably denied or not https
+    if (error && error.code) {
+      mapLoaded = true;
+      // since permission denied or not https
+      // remove the widget from the view
+      view.ui.remove(locate);
+      update({
+        hasGeolocationPermission: false
+      });
+      alert("Search the map to find nearby places");
+    }
+  });
 };
-
+/**
+ * Assigns the container element to the View
+ * This is where we initialize the JSPAI Locate
+ * widget as well.
+ * @param container 
+ */
 export const initialize = async (container: HTMLDivElement) => {
   if (center) {
     view.center = center;
   }
   view.container = container;
 
-  try {
-    if (!center && locate.viewModel.state === "disabled") {
-      const handle = init(locate, "viewModel.state", async (state) => {
-        if (state === "ready") {
-          handle.remove();
-          locate.locate();
-        }
-      });
-    } else if (!center && locate.viewModel.state === "ready") {
-      locate.locate();
-    }
+  if (!center && locate.viewModel.state === "disabled") {
+    const handle = init(locate, "viewModel.state", async (state) => {
+      if (state === "ready") {
+        handle.remove();
+        locate.locate();
+      }
+    });
+  } else if (!center && locate.viewModel.state === "ready") {
+    locate.locate();
   }
-  catch {}
 
   return view;
 };
 
+/**
+ * This will remove all handlers and
+ * save the center of the map view
+ * to reuse later
+ */
 export const cleanup = () => {
   center = view.center;
-  (view.container as any) = null;
   if (locateHandler) {
     locateHandler.remove();
     locateHandler = null;
   }
 };
 
-const currentItems: string[] = [];
-
-const nearbyItemMappedAsKey =
-  (item: NearbyItem, idx: number) => `${item.name}-${item.address}-${idx}`;
-
+/**
+ * Wil add the new places into the FeatureLayer
+ * @param items 
+ */
 export const addLocations = async (items: NearbyItem[]) => {
   // verify we are only updating new items
   if (currentItems.length) {
@@ -189,9 +194,12 @@ export const addLocations = async (items: NearbyItem[]) => {
   view.popup.close();
 };
 
-// Query the item from the Layer
-// switch to the map and open the popup
-// and zoom to that feature
+/**
+ * Query the item from the Layer
+ * switch to the map and open the popup
+ * and zoom to that feature
+ * @param item 
+ */
 export const selectLocation = async (item: NearbyItem) => {
   await whenOnce(view, "ready");
   const layerView = await view.whenLayerView(nearbyLayer) as esri.FeatureLayerView;
@@ -211,6 +219,11 @@ export const selectLocation = async (item: NearbyItem) => {
 
 };
 
+/**
+ * Check if it is day or night
+ * and update the basemap as needed
+ * @param isDayTime
+ */
 export const updateBasemapMode = (isDayTime: boolean) => {
   const style = isDayTime ? vtUrlDay : vtUrlNight;
   // verify that that the layer is loaded
@@ -225,6 +238,12 @@ export const updateBasemapMode = (isDayTime: boolean) => {
   }
 }
 
+/**
+ * Update the color of symbols
+ * Used as part of checking if
+ * it is day or night mode
+ * @param color 
+ */
 export const updateNearbyLayerSymbols = (color: esri.Color) => {
   const renderer = (nearbyLayer.renderer as esri.UniqueValueRenderer).clone();
   // update the color of the symbols in the renderer
@@ -234,6 +253,12 @@ export const updateNearbyLayerSymbols = (color: esri.Color) => {
   nearbyLayer.renderer = renderer;
 }
 
+/**
+ * Watch for the extent to change and when it does
+ * display a message to allow the user to search the area
+ * again for new places
+ * @param update 
+ */
 export const watchExtentChange = async (update: (a: UpdateExtentChangeProps) => void) => {
   await once(view, "extent");
   const { latitude, longitude } = view.center;

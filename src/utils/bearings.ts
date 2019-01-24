@@ -3,6 +3,13 @@
 const toRad = (deg: number) => (deg * Math.PI) / 180;
 const toDeg = (rad: number) => (rad * 180) / Math.PI;
 
+/**
+ * Calculate the bearings between two locations
+ * @param startLatitude
+ * @param startLongitude 
+ * @param stopLatitude 
+ * @param stopLongitude 
+ */
 export const bearings = (
   startLatitude: number,
   startLongitude: number,
