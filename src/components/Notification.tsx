@@ -1,4 +1,4 @@
-import { Snackbar } from "@rmwc/snackbar";
+import { Snackbar, SnackbarAction } from "@rmwc/snackbar";
 import React, { useContext } from "react";
 
 import { AppContext } from "../contexts/App";
@@ -14,13 +14,15 @@ const Notification = () => {
   }
 
   return <Snackbar
-    show={state.showNotification}
-    onHide={() => setState({ showNotification: false })}
+    open={state.showNotification}
+    onClose={() => setState({ showNotification: false })}
     message="Search for places?"
-    actionText="Search"
-    actionHandler={onActionHandler}
     timeout={3000}
-    dismissesOnAction={false}
+    action={
+      <SnackbarAction
+        label="Search"
+        onClick={onActionHandler}
+      />}
   />;
 };
 
