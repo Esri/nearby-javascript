@@ -17,7 +17,7 @@ const Notification = () => {
     open={state.showNotification}
     onClose={() => setState({ showNotification: false })}
     message="Search for places?"
-    timeout={3000}
+    timeout={10000}
     action={
       <SnackbarAction
         label="Search"
