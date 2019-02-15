@@ -33,20 +33,20 @@ export interface DirectionsResult {
 }
 
 export interface AppState {
-  categories: Category[],
+  categories?: Category[],
   currentNearbyItem?: NearbyItem,
   currentPosition?: AppPosition,
   currentRoute?: DirectionsResult;
   hasGeolocationPermission?: boolean;
-  isDayTime: boolean;
-  items: NearbyItem[];
-  mode: string;
-  mounted: boolean;
+  isDayTime?: boolean;
+  items?: NearbyItem[];
+  mode?: string;
+  mounted?: boolean;
   position?: AppPosition;
-  redoSearch: boolean;
-  showFilter: boolean;
+  redoSearch?: boolean;
+  showFilter?: boolean;
   showDirections?: boolean;
-  showNotification: boolean;
+  showNotification?: boolean;
 }
 
 export interface LatLon {

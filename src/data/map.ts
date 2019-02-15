@@ -115,6 +115,7 @@ export const listenForLocate = (update: (a: ListenForLocateProps) => void) => {
     }
   });
 };
+
 /**
  * Assigns the container element to the View
  * This is where we initialize the JSPAI Locate

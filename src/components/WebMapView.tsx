@@ -28,6 +28,9 @@ const WebMapView = () => {
       });
       return () => {
         mounted = false;
+        setState({
+          mounted
+        });
       };
     },
     []

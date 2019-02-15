@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { ListItem } from "@rmwc/list";
 
-const ListItemContainer = styled(ListItem)`
+const ListItemContainer = styled<any, any>(ListItem)`
   cursor: pointer;
   span > small {
     vertical-align: top;

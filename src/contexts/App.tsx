@@ -47,12 +47,12 @@ export const AppContext = createContext<ContextProps>({
 export const AppProvider = ({ children }: AppProviderProps) => {
   const [latLon] = useGeolocation();
   const [items, fetchNearbyItems] = useNearby(latLon as LatLon, defaultCategories);
-  const [state, setState] = useReducer<AppState, {}>(
-    (currentState, newState) => ({ ...currentState, ...newState }),
-    {
-      ...initialState,
-      items
-    }
+  const reducer: (a: AppState, b: AppState) => AppState = (currentState, newState) => ({ ...currentState, ...newState });
+  const init: (a: AppState) => AppState = initState => ({ ...initState, items });
+  const [state, setState] = useReducer(
+    reducer,
+    initialState,
+    init
   );
 
   const getNearby = () => {
