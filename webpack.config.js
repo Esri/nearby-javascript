@@ -27,7 +27,12 @@ module.exports = function(_, arg) {
         new TerserPlugin({
           cache: true,
           parallel: true,
-          sourceMap: false
+          sourceMap: false,
+          terserOptions: {
+            output: {
+              comments: false
+            }
+          }
         }),
         new OptimizeCSSAssetsPlugin({
           cssProcessorOptions: {
