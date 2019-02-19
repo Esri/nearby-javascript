@@ -17,19 +17,15 @@ const WebMapView = () => {
     },
     [items, mapRef.current]
   );
-  
-  let mounted = false;
 
   useEffect(
     () => {
-      mounted = true;
       setState({
-        mounted
+        mounted: true
       });
       return () => {
-        mounted = false;
         setState({
-          mounted
+          mounted: false
         });
       };
     },

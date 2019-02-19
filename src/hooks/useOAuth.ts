@@ -1,21 +1,22 @@
-import { useEffect, useReducer } from "react";
+import { useEffect, useState } from "react";
 
 import { appId, portalUrl } from "../config";
 import { verifyUserSignedIn } from "../utils/credentials";
+
+interface OAuthState {
+  isSignedIn: boolean;
+}
 
 /**
  * Hook to manage authentication
  */
 const useOAuth = () => {
 
-  const initialState = {
+  const initialState: OAuthState = {
     isSignedIn: false
   };
 
-  const [authState, setAuthState] = useReducer<any, {}>(
-    (currentState, newState) => ({ ...currentState, ...newState }),
-    initialState
-  );
+  const [authState, setAuthState] = useState(initialState);
 
   useEffect(
     () => {

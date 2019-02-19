@@ -6,18 +6,11 @@ import Container from "./styled/Container";
 const Layout = ({ children } : any) => {
   const { setState } = useContext(AppContext);
 
-  let mounted = false;
-
   useEffect(
     () => {
-      if (!mounted) {
-        mounted = true;
-        setState({
-          mode: "normal"
-        })
-      }
-
-      return () => mounted = false;
+      setState({
+        mode: "normal"
+      })
     },
     []
   );

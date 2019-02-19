@@ -11,8 +11,6 @@ const useGeolocation = () => {
     longitude: 0
   });
 
-  let mounted = true;
-
   const locate = (latLon?: LatLon) => {
     // If geolocation not supported in the
     // browser, set lat/lon to 0
@@ -33,12 +31,7 @@ const useGeolocation = () => {
 
   useEffect(
     () => {
-      if (mounted) {
-        locate();
-      }
-      return () => {
-        mounted = false;
-      };
+      locate();
     },
   []
   );

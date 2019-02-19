@@ -14,17 +14,14 @@ const useWebMap = (element: HTMLDivElement): useWebMapResponse => {
   const { state, setState } = useContext(AppContext);
   const { items, isDayTime } = state;
 
-  let mounted = true;
   let cleanup: () => void;
   const loadMap = async () => {
-    if (mounted) {
-      const app = await import("../data/map");
-      app.initialize(container);
-      app.listenForLocate(setState);
-      app.listenForPopupActions(setState);
-      cleanup = app.cleanup;
-      app.watchExtentChange(setState);
-    }
+    const app = await import("../data/map");
+    app.initialize(container);
+    app.listenForLocate(setState);
+    app.listenForPopupActions(setState);
+    cleanup = app.cleanup;
+    app.watchExtentChange(setState);
   };
 
   const addItemsToMap = async () => {
@@ -42,11 +39,10 @@ const useWebMap = (element: HTMLDivElement): useWebMapResponse => {
   // from switching routes
   useEffect(
     () => {
-      if (mounted && container) {
+      if (container) {
         loadMap();
       }
       return () => {
-        mounted = false;
         if (cleanup) {
           cleanup();
         }

@@ -16,20 +16,14 @@ const renderCards = (items: NearbyItem[]) =>
       ]
   );
 
-let mounted = false;
-
 const NearbyPlaces = () => {
   const { state, setState } = useContext(AppContext);
   
   useEffect(
     () => {
-      mounted = true;
       setState({
-        mounted
+        mounted: true
       });
-      return () => {
-        mounted = false;
-      };
     },
     []
   );
