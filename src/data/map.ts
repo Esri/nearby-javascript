@@ -197,28 +197,46 @@ export const addLocations = async (items: NearbyItem[]) => {
 
 /**
  * Query the item from the Layer
- * switch to the map and open the popup
- * and zoom to that feature
  * @param item 
  */
-export const selectLocation = async (item: NearbyItem) => {
-  await whenOnce(view, "ready");
-  const layerView = await view.whenLayerView(nearbyLayer) as esri.FeatureLayerView;
-  if (layerView.updating) {
-    await whenFalseOnce(layerView, "updating");
-  }
-  try {
+
+export const queryNearbyItems: (item: NearbyItem) => Promise<esri.Graphic[]> =
+  async (item) => {
+    if (!view.ready) {
+      await whenOnce(view, "ready");
+    }
+    const layerView = await view.whenLayerView(nearbyLayer) as esri.FeatureLayerView;
+    if (layerView.updating) {
+      await whenFalseOnce(layerView, "updating");
+    }
     const query = nearbyLayer.createQuery();
     query.where = `address='${item.address}' AND name='${item.name.replace("'", "''")}'`;
-    const { features } = await layerView.queryFeatures(query);
-    view.popup.open({
-      location: features[0].geometry,
-      features
-    });
-    await view.goTo(features);
-  } catch {}
+    try {
+      const { features } = await layerView.queryFeatures(query);
+      return features;
+    } catch (error) {
+      return [];
+    }
+  };
 
-};
+/**
+ * open the popup
+ * and zoom to that feature
+ * @param features
+ */
+export const selectNearbyItems = async (features: esri.Graphic[]) => {
+  if (!features.length) {
+    return;
+  }
+  if (!view.ready) {
+    await whenOnce(view, "ready");
+  }
+  view.popup.open({
+    location: features[0].geometry,
+    features
+  });
+  return view.goTo(features);
+}
 
 /**
  * Check if it is day or night

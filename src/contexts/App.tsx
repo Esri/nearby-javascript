@@ -1,3 +1,4 @@
+import { debounce } from "@dojo/framework/core/util";
 import { navigate } from "@reach/router"
 import React, { createContext, useEffect, useReducer } from "react";
 import useGeolocation from "../hooks/useGeolocation";
@@ -92,7 +93,17 @@ export const AppProvider = ({ children }: AppProviderProps) => {
       navigate("/map");
     }
     const app = await import("../data/map");
-    app.selectLocation(state.currentNearbyItem as NearbyItem);
+    if (state.mode === "normal") {
+      const features = await app.queryNearbyItems(state.currentNearbyItem as NearbyItem);
+      await app.selectNearbyItems(features);
+    }
+    else {
+    // need to debounce as the route tansitions to the map
+    debounce(async () => {
+      const features = await app.queryNearbyItems(state.currentNearbyItem as NearbyItem);
+      await app.selectNearbyItems(features);
+    }, 500)();
+    }
   };
 
   // when an item is selected from the list

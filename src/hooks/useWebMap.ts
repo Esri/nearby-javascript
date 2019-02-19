@@ -26,7 +26,7 @@ const useWebMap = (element: HTMLDivElement): useWebMapResponse => {
 
   const addItemsToMap = async () => {
     const app = await import("../data/map");
-    app.addLocations(items);
+    await app.addLocations(items);
   };
 
   const updateBasemap = async() => {
