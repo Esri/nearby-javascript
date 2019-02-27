@@ -133,7 +133,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
   // fetch a new list of nearby items
   useEffect(
     () => {
-      const { categories, hasGeolocationPermission, position, redoSearch } = state;
+      const { categories, currentPosition, hasGeolocationPermission, position, redoSearch } = state;
       // verify that the position is not the same as the previous one
       if (
         hasGeolocationPermission &&
@@ -145,7 +145,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         fetchNearbyItems(position, categories);
       }
       else if (redoSearch) {
-        fetchNearbyItems(state.currentPosition as AppPosition, categories);
+        fetchNearbyItems((currentPosition || position) as AppPosition, categories);
         setState({ redoSearch: false });
       }
     },

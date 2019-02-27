@@ -83,7 +83,6 @@
     "rmwc": "^5.0.29-rc.0",
     "terser-webpack-plugin": "^1.2.2",
     "typeface-roboto": "^0.0.54",
-    "uglify-js": "^3.4.9",
     "webpack-material-design-icons": "^0.1.0"
   },
   "arcgis": {
