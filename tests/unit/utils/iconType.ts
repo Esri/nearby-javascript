@@ -9,7 +9,7 @@ describe("utils/iconType", () => {
   describe("iconType", () => {
     it("should return correct icon type for given value", () => {
       expect(iconType()).to.eq("help");
-      expect(iconType("food")).to.eq("local_dining");
+      expect(iconType("Swiss Food")).to.eq("local_dining");
     });
   });
 });

@@ -19,16 +19,9 @@ Feel free to use this project as a starting point for your own applications!
 
 ## Usage
 
-Clone the repo and run `npm install`.
+* Clone the repo and run `npm install`.
 
 * _NOTE FOR WINDOWS USERS_ - You may need to install the [Windows-Build-Tools](https://github.com/felixrieseberg/windows-build-tools) to compile npm modules for this project. `npm install --global --production windows-build-tools`
-
-* `npm start` - compile application and run it in a local server at `http://localhost:8080/`.
-* `npm run build` - compile application for deployment.
-* `npm test` - run unit tests with local chrome driver.
-* `npm run serve` - Run a production build of the application, but serve it up locally to see how the built app will behave.
-
-Use `npm run serve` to full test that Service Workers are working correctly with `webpack-dev-server` self signed certifcates. Refer to [this article](https://deanhume.com/testing-service-workers-locally-with-self-signed-certificates/) on how to run Chrome with proper flags enabled for development purposes. 
 
 * Login to [ArcGIS for Developers](https://developers.arcgis.com/) and [register](https://developers.arcgis.com/applications/#/) your app to create an Client ID.
 
@@ -74,6 +67,13 @@ For development purposes, you will want to add the following redirects to your A
 When you deploy your application, do not use the same Application ID for development as production. You want your Application ID to _only redirect to your production website_.
 
 ![](images/Register2.png)
+
+* `npm test` - run unit tests with local chrome driver.
+* `npm start` - compile application and run it in a local server at `http://localhost:8080/`.
+* `npm run build` - compile application for deployment.
+* `npm run serve` - Run a production build of the application, but serve it up locally to see how the built app will behave.
+
+Use `npm run serve` to full test that Service Workers are working correctly with `webpack-dev-server` self signed certificates. Refer to [this article](https://deanhume.com/testing-service-workers-locally-with-self-signed-certificates/) on how to run Chrome with proper flags enabled for development purposes.
 
 ## Demo
 
