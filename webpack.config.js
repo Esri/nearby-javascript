@@ -16,7 +16,7 @@ const webpack = require("webpack");
 module.exports = function(_, arg) {
   const config = {
     entry: {
-      index: ["./src/css/main.scss", "./src/index.tsx"]
+      index: ["./src/css/main.scss", "@dojo/framework/shim/Promise", "./src/index.tsx"]
     },
     output: {
       filename: "[name].[chunkhash].js",
@@ -51,6 +51,7 @@ module.exports = function(_, arg) {
         {
           test: /\.tsx?$/,
           loader: "ts-loader",
+          exclude: /node_modules/,
           options: {
             transpileOnly: true
           }
@@ -111,7 +112,7 @@ module.exports = function(_, arg) {
         "process.env.NODE_ENV": JSON.stringify(arg.mode || "production")
       }),
 
-      new CleanWebpackPlugin(["dist"]),
+      new CleanWebpackPlugin(),
 
       new CopyWebpackPlugin([
         {
