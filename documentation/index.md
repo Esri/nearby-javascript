@@ -37,7 +37,7 @@ It also uses [webpack](https://webpack.js.org/) to compile and bundle the applic
 
 ### Device location
 
-The Nearby App uses a _mapless app pattern_ by first presenting a list of nearby places on a mobile device. Since the app starts with a list, rather than a map, the device location is obtained using the browsers [Geolocation API](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API). When used on a desktop browser, the application loads both the list of places and the map.
+Nearby Places uses a _mapless app pattern_ by first presenting a list of nearby places on a mobile device. Since the app starts with a list, rather than a map, the device location is obtained using the browsers [Geolocation API](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API). When used on a desktop browser, the application loads both the list of places and the map.
 
 The device location is provided via a [custom React hooks](https://reactjs.org/docs/hooks-custom.html).
 
@@ -90,7 +90,7 @@ Once a location is obtained, a search for places can begin.
 
 The search for places uses category filters (e.g. “Hotel”, “Food”, “Pizza”) to find places matching these types near the current device location. The World Geocoding Service uses a hierarchical structure of categories allowing high-level concepts, like a category level 1 descriptor (e.g. “POI” for place of interest) to be searched as well as more specific category level 3 types like “Brazilian Food” or “Science Museum” to be used. The category filters and other search criteria are defined using the Locator APIs [`addressToLocations`](https://developers.arcgis.com/javascript/latest/api-reference/esri-tasks-Locator.html#addressToLocations) method.
 
-The geocode parameters are configured with the maximum number of results to return, the desired categories, the device's current location, and [output fields](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-service-output.htm#ESRI_SECTION1_42D7D3D0231241E9B656C01438209440) using the following pattern.  Note that the geocoding service supports a specific list of categories defined [here](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-category-filtering.htm#ESRI_SECTION1_502B3FE2028145D7B189C25B1A00E17B).  In the Nearby App, we're interested in the top 20 results within a radius of 50 kilometers of the current location.
+The geocode parameters are configured with the maximum number of results to return, the desired categories, the device's current location, and [output fields](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-service-output.htm#ESRI_SECTION1_42D7D3D0231241E9B656C01438209440) using the following pattern.  Note that the geocoding service supports a specific list of categories defined [here](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-category-filtering.htm#ESRI_SECTION1_502B3FE2028145D7B189C25B1A00E17B).  In Nearby Places, we're interested in the top 20 results within a radius of 50 kilometers of the current location.
 
 ```js
 // src/data/places.ts
