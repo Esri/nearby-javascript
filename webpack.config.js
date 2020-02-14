@@ -1,26 +1,26 @@
-const ArcGISPlugin = require("@arcgis/webpack-plugin");
-const CleanWebpackPlugin = require("clean-webpack-plugin");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
-const Dotenv = require("dotenv-webpack");
-const HtmlWebPackPlugin = require("html-webpack-plugin");
-const HtmlWebpackInlineSourcePlugin = require("html-webpack-inline-source-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-const TerserPlugin = require("terser-webpack-plugin");
-const WebpackPwaManifest = require("webpack-pwa-manifest");
-const WorkboxPlugin = require("workbox-webpack-plugin");
+const ArcGISPlugin = require('@arcgis/webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
+const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+const WebpackPwaManifest = require('webpack-pwa-manifest');
+const WorkboxPlugin = require('workbox-webpack-plugin');
 
-const path = require("path");
-const webpack = require("webpack");
+const path = require('path');
+const webpack = require('webpack');
 
 module.exports = function(_, arg) {
   const config = {
     entry: {
-      index: ["./src/css/main.scss", "@dojo/framework/shim/Promise", "./src/index.tsx"]
+      index: ['./src/css/main.scss', '@dojo/framework/shim/Promise', './src/index.tsx']
     },
     output: {
-      filename: "[name].[chunkhash].js",
-      publicPath: ""
+      filename: '[name].[chunkhash].js',
+      publicPath: ''
     },
     optimization: {
       minimizer: [
@@ -50,7 +50,7 @@ module.exports = function(_, arg) {
       rules: [
         {
           test: /\.tsx?$/,
-          loader: "ts-loader",
+          loader: 'ts-loader',
           exclude: /node_modules/,
           options: {
             transpileOnly: true
@@ -60,7 +60,7 @@ module.exports = function(_, arg) {
           test: /\.html$/,
           use: [
             {
-              loader: "html-loader",
+              loader: 'html-loader',
               options: { minimize: false }
             }
           ],
@@ -68,7 +68,7 @@ module.exports = function(_, arg) {
         },
         {
           test: /\.(jpe?g|png|gif|svg|webp)$/,
-          loader: "url-loader",
+          loader: 'url-loader',
           options: {
             // Inline files smaller than 10 kB (10240 bytes)
             limit: 10 * 1024
@@ -78,9 +78,9 @@ module.exports = function(_, arg) {
           test: /\.(wsv|ttf|otf|eot|woff(2)?)(\?[a-z0-9]+)?$/,
           use: [
             {
-              loader: "file-loader",
+              loader: 'file-loader',
               options: {
-                name: "build/[name].[ext]"
+                name: 'build/[name].[ext]'
               }
             }
           ]
@@ -89,17 +89,17 @@ module.exports = function(_, arg) {
           test: /\.css$|\.scss$/,
           use: [
             MiniCssExtractPlugin.loader,
-            "css-loader",
+            'css-loader',
             {
-              loader: "resolve-url-loader",
+              loader: 'resolve-url-loader',
               options: { includeRoot: true }
             },
             {
-              loader: "sass-loader",
+              loader: 'sass-loader',
               options: {
                 sourceMap: true,
                 includePaths: [
-                  path.resolve("./node_modules")
+                  path.resolve('./node_modules')
                 ]
               }
             }
@@ -109,18 +109,18 @@ module.exports = function(_, arg) {
     },
     plugins: [
       new webpack.DefinePlugin({
-        "process.env.NODE_ENV": JSON.stringify(arg.mode || "production")
+        'process.env.NODE_ENV': JSON.stringify(arg.mode || 'production')
       }),
 
       new CleanWebpackPlugin(),
 
       new CopyWebpackPlugin([
         {
-          from: "./public/.htaccess"
+          from: './public/.htaccess'
         },
         // for netlify redirects
         {
-          from: "./public/_redirects"
+          from: './public/_redirects'
         }
       ]),
 
@@ -129,38 +129,38 @@ module.exports = function(_, arg) {
       }),
 
       new HtmlWebPackPlugin({
-        title: "ArcGIS Nearby Places",
-        template: "./public/index.ejs",
-        filename: "./index.html",
-        favicon: "./public/assets/favicon.ico",
-        chunksSortMode: "none",
-        inlineSource: ".(css)$",
+        title: 'ArcGIS Nearby Places',
+        template: './public/index.ejs',
+        filename: './index.html',
+        favicon: './public/assets/favicon.ico',
+        chunksSortMode: 'none',
+        inlineSource: '.(css)$',
         mode: arg.mode
       }),
 
       new HtmlWebPackPlugin({
-        template: "./public/oauth-callback.html",
-        filename: "./oauth-callback.html",
-        chunksSortMode: "none",
+        template: './public/oauth-callback.html',
+        filename: './oauth-callback.html',
+        chunksSortMode: 'none',
         inject: false
       }),
 
       new MiniCssExtractPlugin({
-        filename: "[name].[chunkhash].css",
-        chunkFilename: "[id].css"
+        filename: '[name].[chunkhash].css',
+        chunkFilename: '[id].css'
       }),
 
       new HtmlWebpackInlineSourcePlugin(),
 
       new WebpackPwaManifest({
-        name: "ArcGIS Nearby Places",
-        short_name: "ArcGISNearby",
-        description: "Nearby Places",
-        background_color: "#0079c1",
-        theme_color: "#0079c1",
+        name: 'ArcGIS Nearby Places',
+        short_name: 'ArcGISNearby',
+        description: 'Nearby Places',
+        background_color: '#0079c1',
+        theme_color: '#0079c1',
         icons: [
           {
-            src: path.resolve("public/assets/icon.png"),
+            src: path.resolve('public/assets/icon.png'),
             sizes: [96, 128, 192, 256, 384, 512] // multiple sizes
           }
         ]
@@ -168,22 +168,22 @@ module.exports = function(_, arg) {
     ],
     resolve: {
       modules: [
-        path.resolve(__dirname, "/src"),
-        path.resolve(__dirname, "node_modules/")
+        path.resolve(__dirname, '/src'),
+        path.resolve(__dirname, 'node_modules/')
       ],
-      extensions: [".ts", ".tsx", ".js", ".scss", ".css"]
+      extensions: ['.ts', '.tsx', '.js', '.scss', '.css']
     },
     node: {
       process: false,
       global: false,
-      fs: "empty"
+      fs: 'empty'
     }
   };
 
-  if (arg.mode === "production") {
+  if (arg.mode === 'production') {
     config.plugins.push(
       new Dotenv({
-        path: "./env/production.env"
+        path: './env/production.env'
       })
     ),
     config.plugins.push(
@@ -199,34 +199,34 @@ module.exports = function(_, arg) {
             // Match any request ends with .png, .jpg, .jpeg or .svg.
             urlPattern: /\.(?:png|jpg|jpeg|svg|gif)$/,
             // Apply a cache-first strategy.
-            handler: "cacheFirst"
+            handler: 'CacheFirst'
           },
           {
             // Match any fonts
             urlPattern: /\.(?:eot|ttf|jpeg|woff|woff2)$/,
             // Apply a cache-first strategy.
-            handler: "cacheFirst"
+            handler: 'CacheFirst'
           },
           {
-            urlPattern: new RegExp("^https://js\.arcgis\.com/"),
-            handler: "staleWhileRevalidate"
+            urlPattern: new RegExp('^https://js\.arcgis\.com/'),
+            handler: 'StaleWhileRevalidate'
           },
           {
-            urlPattern: new RegExp("^https://arcgis\.com\/sharing/"),
-            handler: "staleWhileRevalidate"
+            urlPattern: new RegExp('^https://arcgis\.com\/sharing/'),
+            handler: 'StaleWhileRevalidate'
           },
           {
-            urlPattern: new RegExp("^https://static\.arcgis\.com/"),
-            handler: "staleWhileRevalidate"
+            urlPattern: new RegExp('^https://static\.arcgis\.com/'),
+            handler: 'StaleWhileRevalidate'
           },
           // Google Material stuff
           {
-            urlPattern: new RegExp("^https://fonts\.gstatic\.com/"),
-            handler: "staleWhileRevalidate"
+            urlPattern: new RegExp('^https://fonts\.gstatic\.com/'),
+            handler: 'StaleWhileRevalidate'
           },
           {
-            urlPattern: new RegExp("^https://fonts\.googleapis\.com/"),
-            handler: "staleWhileRevalidate"
+            urlPattern: new RegExp('^https://fonts\.googleapis\.com/'),
+            handler: 'StaleWhileRevalidate'
           }
         ]
       })
@@ -235,7 +235,7 @@ module.exports = function(_, arg) {
   else {
     config.plugins.push(
       new Dotenv({
-        path: "./env/development.env"
+        path: './env/development.env'
       })
     );
   }

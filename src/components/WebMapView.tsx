@@ -1,42 +1,36 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef } from 'react';
 
-import { AppContext } from "../contexts/App";
-import useWebMap from "../hooks/useWebMap";
-import Notification from "./Notification";
-import MapContainer from "./styled/MapContainer";
+import { AppContext } from '../contexts/App';
+import useWebMap from '../hooks/useWebMap';
+import Notification from './Notification';
+import MapContainer from './styled/MapContainer';
 
 const WebMapView = () => {
-  const mapRef = useRef<HTMLDivElement>(null);
-  const [, setContainer] = useWebMap(mapRef.current as HTMLDivElement);
-  const { state, setState } = useContext(AppContext);
-  const { items } = state;
+    const mapRef = useRef<HTMLDivElement>(null);
+    const [, setContainer] = useWebMap(mapRef.current as HTMLDivElement);
+    const { state, setState } = useContext(AppContext);
+    const { items } = state;
 
-  useEffect(
-    () => {
-      setContainer(mapRef.current as HTMLDivElement);
-    },
-    [items, mapRef.current]
-  );
+    useEffect(() => {
+        setContainer(mapRef.current as HTMLDivElement);
+    }, [items, mapRef.current]);
 
-  useEffect(
-    () => {
-      setState({
-        mounted: true
-      });
-      return () => {
+    useEffect(() => {
         setState({
-          mounted: false
+            mounted: true,
         });
-      };
-    },
-    []
-  );
+        return () => {
+            setState({
+                mounted: false,
+            });
+        };
+    }, []);
 
-  return (
-    <MapContainer ref={mapRef}>
-      <Notification />
-    </MapContainer>
-  );
+    return (
+        <MapContainer ref={mapRef}>
+            <Notification />
+        </MapContainer>
+    );
 };
 
 export default WebMapView;

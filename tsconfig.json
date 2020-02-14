@@ -27,7 +27,6 @@
     "moment"
   ],
   "include": [
-    "src/*",
-    "typings/*"
+    "src/*"
   ]
 }

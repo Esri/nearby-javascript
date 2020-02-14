@@ -1,9 +1,5 @@
-/// <reference types="intern" />
 
-const { describe, it } = intern.getPlugin("interface.bdd");
-const { expect } = intern.getPlugin("chai");
-
-import { bearings } from "../../../src/utils/bearings";
+import { bearings } from "./bearings";
 
 describe("utils/bearings", () => {
   describe("bearings", () => {
@@ -52,14 +48,14 @@ describe("utils/bearings", () => {
       const nwLon = -118.283322;
       const nwDirection = bearings(startLat, startLon, nwLat, nwLon);
 
-      expect(nDirection).to.eql("N");
-      expect(neDirection).to.eql("NE");
-      expect(eDirection).to.eql("E");
-      expect(seDirection).to.eql("SE");
-      expect(sDirection).to.eql("S");
-      expect(swDirection).to.eql("SW");
-      expect(wDirection).to.eql("W");
-      expect(nwDirection).to.eql("NW");
+      expect(nDirection).toBe("N");
+      expect(neDirection).toBe("NE");
+      expect(eDirection).toBe("E");
+      expect(seDirection).toBe("SE");
+      expect(sDirection).toBe("S");
+      expect(swDirection).toBe("SW");
+      expect(wDirection).toBe("W");
+      expect(nwDirection).toBe("NW");
     });
   });
 });

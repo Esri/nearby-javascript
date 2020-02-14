@@ -13,7 +13,7 @@ This application takes advantage of numerous technologies for development purpos
 
 This application also uses [Workbox for Webpack](https://developers.google.com/web/tools/workbox/get-started/webpack) to set up [service workers](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API) for the application to cache application code and files, as well as uses an [appcache fallback](https://developer.mozilla.org/en-US/docs/Web/HTML/Using_the_application_cache) for Internet Explorer, Edge, and Safari.
 
-[Intern](https://theintern.io/) is used for all unit tests.
+[Jest](https://jestjs.io/) is used for all unit tests.
 
 Feel free to use this project as a starting point for your own applications!
 

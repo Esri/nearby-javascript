@@ -1,9 +1,4 @@
-/// <reference types="intern" />
-
-const { describe, it } = intern.getPlugin("interface.bdd");
-const { expect } = intern.getPlugin("chai");
-
-import { asNearByItem } from "../../../src/utils/nearby";
+import { asNearByItem } from "./nearby";
 
 import esri = __esri;
 
@@ -29,11 +24,11 @@ describe("data/nearby", () => {
       const item = asNearByItem(coords as Coordinates)(
         candidate as esri.AddressCandidate
       );
-      expect(item.location.x).to.eq(candidate.location.longitude);
-      expect(item.location.y).to.eq(candidate.location.latitude);
-      expect(item.address).to.eq(candidate.attributes.Place_addr);
-      expect(item.name).to.eq(candidate.attributes.PlaceName);
-      expect(item.type).to.eq(candidate.attributes.Type);
+      expect(item.location.x).toEqual(candidate.location.longitude);
+      expect(item.location.y).toEqual(candidate.location.latitude);
+      expect(item.address).toEqual(candidate.attributes.Place_addr);
+      expect(item.name).toEqual(candidate.attributes.PlaceName);
+      expect(item.type).toEqual(candidate.attributes.Type);
     });
   });
 });
