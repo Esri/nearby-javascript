@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { appId, portalUrl } from '../config';
 import { verifyUserSignedIn } from '../utils/credentials';
 
-interface OAuthState {
+export interface OAuthState {
     isSignedIn: boolean;
 }
 
@@ -51,7 +51,9 @@ const useOAuth = () => {
         setAuthState({ isSignedIn: false });
     };
 
-    return [authState, signIn, signOut];
+    const setAuth = (signin: boolean) => signin ? signIn() : signOut();
+
+    return [authState, setAuth];
 };
 
 export default useOAuth;

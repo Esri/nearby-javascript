@@ -3,20 +3,20 @@ import React, { useState } from 'react';
 
 import AuthButton from './styled/AuthButton';
 
-import useOAuth from '../hooks/useOAuth';
+import useOAuth, { OAuthState } from '../hooks/useOAuth';
 
 export const Authentication = () => {
     const [localState, setLocalState] = useState({
         menuIsOpen: false,
     });
 
-    const [authState, signIn, signOut] = useOAuth();
+    const [authState, setAuth] = useOAuth() as [OAuthState, (a: boolean) => Promise<any>];
 
     const onSelect = () => {
         if (authState.isSignedIn) {
-            signOut();
+            setAuth(false);
         } else {
-            signIn();
+            setAuth(true);
         }
     };
 
