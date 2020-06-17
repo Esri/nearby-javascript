@@ -29,26 +29,34 @@ let locateHandler: IHandle | null;
 let mapLoaded = false;
 let popActionListening = false;
 
-export const webmap = new ArcGISMap({
-    basemap: {
-        baseLayers: [baseVectorTileLayer],
-    },
-    layers: [nearbyLayer],
-});
+const createArcGISMap = () => {
+    return new ArcGISMap({
+        basemap: {
+            baseLayers: [baseVectorTileLayer],
+        },
+        layers: [nearbyLayer],
+    });
+}
 
-export const view = new MapView({
-    map: webmap,
-    center: [-116.5, 33.8],
-    scale: 50000,
-    padding: { left: 0, top: 60, right: 0, bottom: 0 },
-    ui: {
-        components: ['attribution', 'zoom', 'compass'],
-    },
-    popup: {
-        collapseEnabled: false,
-        actions: [],
-    },
-});
+export let webmap = createArcGISMap();
+
+const createMapView = () => {
+    return new MapView({
+        map: webmap,
+        center: [-116.5, 33.8],
+        scale: 50000,
+        padding: { left: 0, top: 60, right: 0, bottom: 0 },
+        ui: {
+            components: ['attribution', 'zoom', 'compass'],
+        },
+        popup: {
+            collapseEnabled: false,
+            actions: [],
+        },
+    });
+}
+
+export let view = createMapView();
 
 export const locate = new Locate({ view, scale: 9000 });
 
@@ -133,6 +141,9 @@ export const listenForLocate = (update: (a: ListenForLocateProps) => void) => {
  * @param container
  */
 export const initialize = async (container: HTMLDivElement) => {
+    webmap = createArcGISMap();
+    view = createMapView();
+
     if (center) {
         view.center = center;
     }
