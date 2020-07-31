@@ -2,6 +2,18 @@
 
 This repo provides an example app called [Nearby Places](https://developers.arcgis.com/example-apps/nearby-javascript/?utm_source=github&utm_campaign=example_apps_nearby_javascript) that can be used as as starter for your organizations mapping applications built with [ArcGIS API 4 for JavaScript](https://developers.arcgis.com/javascript/). You can use the Nearby Places as is, or extend it using the ArcGIS API for JavaScript.
 
+<!-- MDTOC maxdepth:6 firsth1:0 numbering:0 flatten:0 bullets:1 updateOnSave:1 -->
+
+- [Features](#features)   
+- [Usage](#usage)   
+- [Demo](#demo)   
+- [Issues](#issues)   
+- [Contributing](#contributing)   
+- [Licensing](#licensing)   
+
+<!-- /MDTOC -->
+---
+
 ## Features
  * Geocoding with categories
  * Device location
