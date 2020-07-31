@@ -1,3 +1,23 @@
+# Nearby Places JavaScript
+
+<!-- MDTOC maxdepth:6 firsth1:0 numbering:0 flatten:0 bullets:1 updateOnSave:1 -->
+
+- [Description](#description)   
+   - [Functionality showcased](#functionality-showcased)   
+- [Progressive web app](#progressive-web-app)   
+- [Identifying places nearby](#identifying-places-nearby)   
+   - [Device location](#device-location)   
+   - [Geocoding](#geocoding)   
+   - [Calculating bearing and distance](#calculating-bearing-and-distance)   
+- [Displaying places in the map](#displaying-places-in-the-map)   
+   - [Application routing](#application-routing)   
+   - [Refreshing the map view with new search results](#refreshing-the-map-view-with-new-search-results)   
+- [Routing](#routing)   
+- [Identity](#identity)   
+
+<!-- /MDTOC -->
+---
+
 ## Description
 
 Customize your exploration of places around you using the [ArcGIS World Geocoding Service](https://developers.arcgis.com/features/geocoding/) or your own [custom geocoding service](https://doc.arcgis.com/en/arcgis-online/reference/geocode.htm#ESRI_SECTION1_CD53FF34D6A54AB8880A3AE98F805F74). Nearby Places uses Esri’s geocoding service to find hotels, restaurants, or coffee shops within a default radius of the device’s current location and, upon signing in, provides routing directions to a selected place of interest. The ArcGIS API for JavaScript [Geometry Engine](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-geometryEngine.html) is used to sort the list of places based on distance and bearing from the device’s location.
@@ -409,4 +429,3 @@ export const appId = process.env.ARCGIS_APP_ID;
  */
 export const portalUrl = "https://www.arcgis.com"; // default Portal URL
 ```
-
