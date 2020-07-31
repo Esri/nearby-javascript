@@ -5,6 +5,7 @@ This repo provides an example app called [Nearby Places](https://developers.arcg
 <!-- MDTOC maxdepth:6 firsth1:0 numbering:0 flatten:0 bullets:1 updateOnSave:1 -->
 
 - [Features](#features)   
+- [Detailed Documentation](#detailed-documentation)   
 - [Usage](#usage)   
 - [Demo](#demo)   
 - [Issues](#issues)   
@@ -28,6 +29,10 @@ This application also uses [Workbox for Webpack](https://developers.google.com/w
 [Jest](https://jestjs.io/) is used for all unit tests.
 
 Feel free to use this project as a starting point for your own applications!
+
+## Detailed Documentation
+
+Read the [docs](./docs/README.md) for a detailed explanation of the application, including its architecture and how it leverages the ArcGIS platform, as well as how you can begin using the app right away.
 
 ## Usage
 
