@@ -17,6 +17,7 @@ This repo provides an example app called [Nearby Places](https://developers.arcg
 ---
 
 ## Features
+
  * Geocoding with categories
  * Device location
  * Calculating bearing and distance
@@ -100,9 +101,11 @@ Use `npm run serve` to full test that Service Workers are working correctly with
 ![application](images/nearby-places.gif)
 
 ## Issues
+
 Find a bug or want to request a new feature enhancement?  Let us know by submitting an issue.
 
 ## Contributing
+
 Anyone and everyone is welcome to [contribute](CONTRIBUTING.md). We do accept pull requests.
 
 1. Get involved
@@ -115,6 +118,7 @@ Anyone and everyone is welcome to [contribute](CONTRIBUTING.md). We do accept pu
 Generating table of contents for documents in this repository was performed using the [MDTOC package for Atom](https://atom.io/packages/atom-mdtoc).
 
 ## Licensing
+
 Copyright 2018 Esri
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
