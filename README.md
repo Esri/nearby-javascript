@@ -10,6 +10,7 @@ This repo provides an example app called [Nearby Places](https://developers.arcg
 - [Demo](#demo)   
 - [Issues](#issues)   
 - [Contributing](#contributing)   
+- [MDTOC](#mdtoc)   
 - [Licensing](#licensing)   
 
 <!-- /MDTOC -->
@@ -108,6 +109,10 @@ Anyone and everyone is welcome to [contribute](CONTRIBUTING.md). We do accept pu
 2. Report issues
 3. Contribute code
 4. Improve documentation
+
+## MDTOC
+
+Generating table of contents for documents in this repository was performed using the [MDTOC package for Atom](https://atom.io/packages/atom-mdtoc).
 
 ## Licensing
 Copyright 2018 Esri
