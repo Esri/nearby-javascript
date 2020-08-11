@@ -1,6 +1,6 @@
 {
   "name": "nearby-javascript",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "devDependencies": {
     "@types/arcgis-js-api": "~4.14.0",
     "@types/jest": "^24.0.25",
